@@ -1,8 +1,13 @@
+import { GlobalStyle } from "./GlobalStyle"
+import { Login } from "./components/Login/Login"
 
 export const App = () => {
 
   return (
-    <p> This is the schedule app </p>
+    <>
+      <Login />
+      <GlobalStyle />
+    </>
   )
 }
 

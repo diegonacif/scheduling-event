@@ -5,7 +5,6 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { App } from './App.jsx'
 import { Login } from './components/Login/Login.jsx';
 import { PrivateRoutes } from './PrivateRoutes.jsx';
 import { Event } from './components/Event/Event.jsx';
@@ -19,7 +18,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path={"home"} element={<Event />} />
         </Route>
       </Routes>
-      <App />
     </BrowserRouter>
   </React.StrictMode>,
 )

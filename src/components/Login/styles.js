@@ -12,17 +12,35 @@ export const Container = styled.section `
   font-family: sans-serif;
 `
 export const Content = styled.div `
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: min(100%, 25rem);
-  min-height: 17rem;
+  min-height: max-content;
   height: max-content;
   border-radius: 4px;
-  padding: 0.75rem;
+  padding: 2rem 0.75rem;
   background: rgb(63,99,221);
   background: linear-gradient(135deg, rgba(63,99,221,1) 0%, rgba(141,78,198,1) 100%);
+
+  button {
+    background-color: transparent;
+    border: 0;
+    color: var(--gray-100);
+    cursor: pointer;
+  }
+
+  .register-button {
+    margin-top: 0.75rem;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
 
   .FormRoot {
     width: 100%;
@@ -61,6 +79,7 @@ export const Content = styled.div `
       border-radius: 4px;
       font-weight: bold;
       color: rgba(141,78,198,1);
+      cursor: pointer;
     }
   }
 `

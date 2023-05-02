@@ -1,11 +1,24 @@
+import * as Dialog from "@radix-ui/react-dialog";
 import { Header } from "../Header/Header";
-import { EventsContainer, EventsTable, NewEventButton } from "./styles";
+import {
+  EventsContainer,
+  EventsTable,
+  NewEventButton,
+  RegisterEvent,
+} from "./styles";
 import { Trash, NotePencil } from "phosphor-react";
+import { NewEventModal } from "../NewEventModal/NewEventModal";
 
 export const Event = () => {
   return (
     <div>
       <Header />
+      <RegisterEvent>
+        <strong>
+          Olá Rafaella, você ainda não tem nenhum evento cadastrado.
+        </strong>
+        <span>Crie seus Eventos e Organize sua agenda</span>
+      </RegisterEvent>
       <EventsContainer>
         <EventsTable>
           <thead>
@@ -59,8 +72,14 @@ export const Event = () => {
             </tr>
           </tbody>
         </EventsTable>
-        <NewEventButton>Criar Evento</NewEventButton>
+
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <NewEventButton>Criar Evento</NewEventButton>
+          </Dialog.Trigger>
+          <NewEventModal />
+        </Dialog.Root>
       </EventsContainer>
     </div>
   );
-}
+};

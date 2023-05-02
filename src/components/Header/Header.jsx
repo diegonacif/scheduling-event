@@ -1,7 +1,7 @@
 import { HeaderContainer, HeaderContent } from "./styles";
 import { CalendarX } from "phosphor-react";
 
-export function Header() {
+export const Header = () => {
   return (
     <HeaderContainer>
       <HeaderContent>

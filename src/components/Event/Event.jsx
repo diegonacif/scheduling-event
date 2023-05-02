@@ -1,8 +1,8 @@
-import { Header } from "./components";
+import { Header } from "../Header/Header";
 import { EventsContainer, EventsTable, NewEventButton } from "./styles";
 import { Trash, NotePencil } from "phosphor-react";
 
-export function Event() {
+export const Event = () => {
   return (
     <div>
       <Header />

@@ -12,13 +12,27 @@ export const GlobalStyle = createGlobalStyle`
     --gray-700: #374151;
     --gray-800: #2C2C2C;
     --gray-900: #191919;
-    --blue-300: #00BFFF;
-    --blue-600: #0073B7;
-    --blue-700: #003E64;
-    --green-400: #77DD77;
-    --green-600: #00703C;
-    --orange-500: #FFA07A;
 
+    --rose: #FFDAC6;
+    --orange: #F46036;
+    --red: #D7263D;
+    --green-400: #8DAA91;
+    --green-600: #788475;
+
+    // Fonts
+    --font-primary: 'Georama', sans-serif;
+
+    // Font sizes
+    --text-3xs: 0.5rem; /* 8px */
+    --text-2xs: 0.625rem; /* 10px */
+    --text-xs: 0.75rem; /* 12px */
+    --text-sm: 0.875rem; /* 14px */
+    --text-md: 1rem; /* 16px */
+    --text-lg: 1.125rem; /* 18px */
+    --text-xl: 1.25rem; /* 20px */
+    --text-2xl: 1.375rem; /* 22px */
+    --text-2xl: 1.5rem; /* 24px */
+    --text-3xl: 1.625rem; /* 26px */
 
     // Media Variables
     --tablet-size: "min-width: 510px";

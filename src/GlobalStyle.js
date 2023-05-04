@@ -57,4 +57,11 @@ export const GlobalStyle = createGlobalStyle`
       }
     }
   }
+
+  body {
+	background-color: var(--gray-100);;
+	-webkit-font-smoothing:antialiased;
+}
+
+ 
 `

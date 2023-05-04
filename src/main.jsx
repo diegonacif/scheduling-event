@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path={"/"} element={<Login />} />
         <Route element={<App />}>
-          <Route path={"home"} element={<Event />} />
+          <Route path={"home"} element={<Event />}/>
         </Route>
       </Routes>
     </AuthEmailProvider>

@@ -20,7 +20,7 @@ export const GlobalStyle = createGlobalStyle`
     --green-600: #788475;
 
     // Fonts
-    --font-primary: 'Georama', sans-serif;
+    font-family: 'Georama', sans-serif;
 
     // Font sizes
     --text-3xs: 0.5rem; /* 8px */

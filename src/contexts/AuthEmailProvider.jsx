@@ -57,8 +57,8 @@ export const AuthEmailProvider = ({ children }) => {
     }
   }
 
-  // const logoutUser = async () => {
-  // }
+  const logoutUser = async () => {
+  }
 
   return (
     <AuthEmailContext.Provider value={{

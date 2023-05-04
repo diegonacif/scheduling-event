@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { auth } from "../services/firebase";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import PropTypes from 'prop-types';
@@ -19,10 +19,11 @@ export const AuthEmailProvider = ({ children }) => {
 
   const [refreshToken, setRefreshToken] = useSessionStorage('token', null);
 
-  console.log(refreshToken)
+  console.log({refreshToken: !!refreshToken})
   
   // Firestore Loading
   const [value, loading, error] = useAuthState(auth);
+  console.log({value: value});
   useEffect(() => {
     setAuthLoading(loading);
     value && setRefreshToken(value.refreshToken)
@@ -38,7 +39,8 @@ export const AuthEmailProvider = ({ children }) => {
         registerEmail,
         registerPassword
       );
-      console.log(user)
+      setRefreshToken(user.user.refreshToken);
+      console.log("Register success!")
     } catch (error) {
       console.log(error.message)
     }
@@ -51,14 +53,22 @@ export const AuthEmailProvider = ({ children }) => {
         loginEmail, 
         loginPassword
       );
-      console.log({email: user?.user.email, refreshToken: user?.user.refreshToken});
+      setRefreshToken(user.user.refreshToken);
+      console.log("Login success!");
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  // const logoutUser = async () => {
-  // }
+  const logoutUser = async () => {
+    try {
+      await signOut(auth);
+      setRefreshToken(null);
+      console.log("Logout success!");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   return (
     <AuthEmailContext.Provider value={{
@@ -67,7 +77,8 @@ export const AuthEmailProvider = ({ children }) => {
       setLoginEmail,
       setLoginPassword,
       registerUser,
-      loginUser
+      loginUser,
+      logoutUser
     }}>
       {children}
     </AuthEmailContext.Provider>

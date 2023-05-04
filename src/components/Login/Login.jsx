@@ -16,7 +16,8 @@ export const Login = () => {
     setLoginEmail,
     setLoginPassword,
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
   } = useContext(AuthEmailContext);
 
   // Yup Resolver
@@ -140,7 +141,10 @@ export const Login = () => {
           }
 
         </Content>
-        <button style={{position: "absolute", bottom: "3rem", left: "50%", transform: "translateX(-50%)", padding: "0.25rem 0.5rem"}}>
+        <button 
+          style={{position: "absolute", bottom: "3rem", left: "50%", transform: "translateX(-50%)", padding: "0.25rem 0.5rem"}}
+          onClick={() => logoutUser()}
+        >
           Logout
         </button>
       </Container>

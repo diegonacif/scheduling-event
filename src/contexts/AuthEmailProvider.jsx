@@ -1,32 +1,35 @@
-import { createContext, useState } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth"
+import { createContext, useEffect, useState } from "react";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../services/firebase";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import PropTypes from 'prop-types';
+import { useSessionStorage } from "usehooks-ts";
 
 export const AuthEmailContext = createContext({})
 
 export const AuthEmailProvider = ({ children }) => {
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
 
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  
+  const [authLoading, setAuthLoading] = useState(true);
 
-  console.log({
-    registerEmail: registerEmail,
-    registerPassword: registerPassword
-  })
+  const [refreshToken, setRefreshToken] = useSessionStorage('token', null);
 
-  onAuthStateChanged(auth, (currentUser) => {
-    if (loading) {
-      console.log("loading user state")
-      setIsLoading(true);
-    } else {
-      setUser(currentUser);
-      setIsSignedIn(!!currentUser);
-      setIsLoading(false);
-    }
-  })
+  console.log(refreshToken)
+  
+  // Firestore Loading
+  const [value, loading, error] = useAuthState(auth);
+  useEffect(() => {
+    setAuthLoading(loading);
+    value && setRefreshToken(value.refreshToken)
+    error && console.log(error)
+    
+  }, [loading]);
+
 
   const registerUser = async () => {
     try {
@@ -39,7 +42,7 @@ export const AuthEmailProvider = ({ children }) => {
     } catch (error) {
       console.log(error.message)
     }
-  }
+  };
 
   const loginUser = async () => {
     try {
@@ -48,14 +51,11 @@ export const AuthEmailProvider = ({ children }) => {
         loginEmail, 
         loginPassword
       );
-      setUserMail(user?.user.email);
-      setAccessToken(user?.user.accessToken);
-      console.log({email: user?.user.email, accessToken: user?.user.accessToken});
-
+      console.log({email: user?.user.email, refreshToken: user?.user.refreshToken});
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 
   // const logoutUser = async () => {
   // }
@@ -66,9 +66,14 @@ export const AuthEmailProvider = ({ children }) => {
       setRegisterPassword,
       setLoginEmail,
       setLoginPassword,
-      registerUser
+      registerUser,
+      loginUser
     }}>
       {children}
     </AuthEmailContext.Provider>
   )
 }
+
+AuthEmailProvider.propTypes = {
+  children: PropTypes.node,
+};

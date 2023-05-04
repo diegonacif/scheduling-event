@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import * as Form from '@radix-ui/react-form';
 
 import { GlobalStyle } from '../../GlobalStyle';
 import { Container, Content } from './styles';
@@ -16,7 +15,9 @@ export const Login = () => {
     setRegisterPassword,
     setLoginEmail,
     setLoginPassword,
-    registerUser
+    registerUser,
+    loginUser,
+    logoutUser
   } = useContext(AuthEmailContext);
 
   // Yup Resolver
@@ -30,9 +31,9 @@ export const Login = () => {
   const {
     watch,
     register,
-    setValue,
-    getValues,
-    trigger,
+    // setValue,
+    // getValues,
+    // trigger,
     // formState: { errors, isValid }
   } = useForm({
     mode: "all",
@@ -47,7 +48,15 @@ export const Login = () => {
   useEffect(() => {
     setRegisterEmail(watch("registerEmail"));
     setRegisterPassword(watch("registerPassword"));
-  }, [watch("registerEmail"), watch("registerPassword")]);
+    setLoginEmail(watch("loginEmail"));
+    setLoginPassword(watch("loginPassword"))
+
+  }, [
+    watch("registerEmail"), 
+    watch("registerPassword"),
+    watch("loginEmail"),
+    watch("loginPassword")
+  ]);
 
   const onRegisterSubmit = (e) => {
     e.preventDefault();
@@ -56,7 +65,7 @@ export const Login = () => {
 
   const onLoginSubmit = (e) => {
     e.preventDefault();
-    registerUser();
+    loginUser();
   }
 
   return (
@@ -67,42 +76,27 @@ export const Login = () => {
           {
             currentMode === "login-mode" ?
             <>
-              <Form.Root className="FormRoot" id="login-mode">
+              <form className="FormRoot" id="login-mode" onSubmit={(e) => onLoginSubmit(e)}>
 
-                <Form.Field className="FormField" name="email">
+                <div className="FormField" name="email">
+                  <label className="FormLabel">Email</label>
                   <div>
-                    <Form.Label className="FormLabel">Email</Form.Label>
-                    <Form.Message className="FormMessage" match="valueMissing">
-                      Insira seu email
-                    </Form.Message>
-                    <Form.Message className="FormMessage" match="typeMismatch">
-                      Formato de email inválido
-                    </Form.Message>
+                    <input className="Input" type="email" {...register("loginEmail")} />
                   </div>
-                  <Form.Control asChild>
-                    <input className="Input" type="email" required />
-                  </Form.Control>
-                </Form.Field>
+                </div>
 
-                <Form.Field className="FormField" name="question">
+                <div className="FormField" name="question">
+                  <label className="FormLabel">Senha</label>
                   <div>
-                    <Form.Label className="FormLabel">Senha</Form.Label>
-                    <Form.Message className="FormMessage" match="valueMissing">
-                      Insira sua senha
-                    </Form.Message>
+                    <input className="Input" type="password" {...register("loginPassword")} />
                   </div>
-                  <Form.Control asChild>
-                    <input className="Input" type="password" required />
-                  </Form.Control>
-                </Form.Field>
+                </div>
 
-                <Form.Submit asChild>
-                  <button className="Button">
-                    Login
-                  </button>
-                </Form.Submit>
+                <button className="Button" type="submit">
+                  Login
+                </button>
 
-              </Form.Root> 
+              </form> 
               <button 
                 className="register-button"
                 onClick={() => setCurrentMode("register-mode")}
@@ -147,6 +141,12 @@ export const Login = () => {
           }
 
         </Content>
+        <button 
+          style={{position: "absolute", bottom: "3rem", left: "50%", transform: "translateX(-50%)", padding: "0.25rem 0.5rem"}}
+          onClick={() => logoutUser()}
+        >
+          Logout
+        </button>
       </Container>
     </>
   )

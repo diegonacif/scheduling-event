@@ -101,10 +101,12 @@ export const Content = styled.div `
       font-size: var(--text-md);
       color: var(--green-600);
       cursor: pointer;
+      transition: background-color 0.3s;
 
       &:disabled {
         background-color: var(--gray-400);
         cursor: not-allowed;
+        transition: background-color 0.3s;
       }
     }
   }

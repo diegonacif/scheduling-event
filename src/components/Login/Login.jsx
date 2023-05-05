@@ -38,8 +38,9 @@ export const Login = () => {
     watch,
     register,
     // setValue,
-    getValues,
+    // getValues,
     // trigger,
+    reset,
     formState: { errors, isValid }
   } = useForm({
     mode: "all",
@@ -50,6 +51,11 @@ export const Login = () => {
     //   discount: 0
     // }
   });
+  // ResetForm when mode changes
+
+  useEffect(() => {
+    reset();
+  }, [currentMode])
 
   // Login Button Validation
   useEffect(() => {
@@ -149,21 +155,21 @@ export const Login = () => {
 
                 <div className="FormField" name="email">
                   <label className="FormLabel">Email</label>
-                  <div>
+                  <div className="FormInput">
                     <input className="Input" type="email" {...register("registerEmail")} />
                   </div>
                 </div>
 
                 <div className="FormField" name="question">
                   <label className="FormLabel">Senha</label>
-                  <div>
+                  <div className="FormInput">
                     <input className="Input" type="password" {...register("registerPassword")} />
                   </div>
                 </div>
 
                 <div className="FormField" name="question">
                   <label className="FormLabel">Repita a senha</label>
-                  <div>
+                  <div className="FormInput">
                     <input className="Input" type="password" {...register("registerPasswordConfirmation")}/>
                   </div>
                 </div>

@@ -5,11 +5,11 @@ import {  addDoc,collection} from "firebase/firestore"
 import { db } from "../../services/firebase";
 import {useForm} from "react-hook-form"
 
-export const NewEventModal = () => {
-const { register, handleSubmit }= useForm()
+export const NewEventModal = ({ setRefresh }) => {
+const { register, handleSubmit, reset }= useForm();
 
 
- async function handleCreateEvent(data){
+async function handleCreateEvent(data){
   const event = {
     event:data.event,
     category:data.category,
@@ -22,10 +22,12 @@ const { register, handleSubmit }= useForm()
   try {
     const docRef = await addDoc(collection(db,"events"),event)
     console.log("Evento adicionado com sucesso", docRef.id)
+    setRefresh(current => !current);
+    reset();
   } catch(error){
     console.log("Erro ao adiconar o evento",error)
   }
- }
+}
 
   return (
     <Dialog.Portal>

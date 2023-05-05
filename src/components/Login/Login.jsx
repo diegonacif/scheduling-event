@@ -22,9 +22,12 @@ export const Login = () => {
 
   // Yup Resolver
   const registerSchema = yup.object({
-    apartment: yup.string().required("Insira o número do apartamento").min(3, "Número inválido"),
-    block: yup.string().required("Insira o número do bloco"),
-    payment: yup.string().required("Insira o método de pagamento"),
+    registerEmail: yup.string().required("Insira um email válido"),
+    registerPassword: yup.string().required("Insira uma senha"),
+    registerPasswordConfirmation: yup.string()
+    .oneOf([yup.ref('registerPassword'), null], 'Passwords must match'),
+    loginEmail: yup.string().required("Insira seu email"),
+    loginPassword: yup.string().required("Insira sua senha"),
   }).required()
 
   // Hook Form Controller
@@ -75,6 +78,8 @@ export const Login = () => {
         <Content>
           {
             currentMode === "login-mode" ?
+
+            // LOGIN MODE
             <>
               <form className="FormRoot" id="login-mode" onSubmit={(e) => onLoginSubmit(e)}>
 
@@ -105,6 +110,7 @@ export const Login = () => {
               </button>
             </> :
 
+            // REGISTER MODE
             <>
               <button className="close-button" onClick={() => setCurrentMode("login-mode")}>
                 <X size={24} />
@@ -128,7 +134,7 @@ export const Login = () => {
                 <div className="FormField" name="question">
                   <label className="FormLabel">Repita a senha</label>
                   <div>
-                    <input className="Input" type="password" />
+                    <input className="Input" type="password" {...register("registerPasswordConfirmation")}/>
                   </div>
                 </div>
 

@@ -16,6 +16,7 @@ import { collection, getDocs } from "firebase/firestore";
 export const Event = () => {
 const[events, setEvents] = useState([]);
 const eventCollectionRef = collection(db, "events");
+const [refresh, setRefresh] = useState(false);
 
 useEffect(()=> {
   const getEvents = async () => {
@@ -23,7 +24,7 @@ useEffect(()=> {
     setEvents(data.docs.map((doc) => ({...doc.data(), id:doc.id})))
   };
   getEvents();
-},[]);
+},[refresh]);
 
 
   return (
@@ -66,7 +67,7 @@ useEffect(()=> {
           <Dialog.Trigger asChild>
             <NewEventButton>Criar Evento</NewEventButton>
           </Dialog.Trigger>
-          <NewEventModal />
+          <NewEventModal setRefresh={setRefresh} />
         </Dialog.Root>
       </EventsContainer>
     </>

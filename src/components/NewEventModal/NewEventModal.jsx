@@ -43,7 +43,6 @@ const {register,handleSubmit}= useForm()
           <input type="time"  placeholder="Horário de término" name=" endTimeEvent"/>
           <input type="text"  placeholder="Local" ref={ register({required:true})} name="location"/>
           <input type="text"  placeholder="Descrição" name="description"/>
-
           <button type="submit" >Criar Evento</button>
         </form>
       </Content>

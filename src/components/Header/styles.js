@@ -19,4 +19,9 @@ export const HeaderContent = styled.div`
   strong {
     font-size: large;
   }
+
+  svg {
+    color: var(--gray-100);
+    cursor: pointer;
+  }
 `;

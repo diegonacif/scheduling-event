@@ -18,7 +18,6 @@ export const Login = () => {
     setLoginPassword,
     registerUser,
     loginUser,
-    logoutUser,
     isSignedIn
   } = useContext(AuthEmailContext);
 
@@ -39,7 +38,7 @@ export const Login = () => {
     registerEmail: yup.string().email("Formato inválido de email").required("Insira um email"),
     registerPassword: yup.string().min(6, "Mínimo de 6 caracteres").required("Insira uma senha"),
     registerPasswordConfirmation: yup.string()
-    .oneOf([yup.ref('registerPassword'), null], 'Passwords must match'),
+    .oneOf([yup.ref('registerPassword'), null], 'As senhas não coincidem'),
 
     loginEmail: yup.string().email("Formato inválido de email").required("Insira seu email"),
     loginPassword: yup.string().required("Insira sua senha").min(6, "Mínimo de 6 caracteres"),
@@ -49,11 +48,9 @@ export const Login = () => {
   const {
     watch,
     register,
-    // setValue,
-    // getValues,
     trigger,
     reset,
-    formState: { errors, isValid }
+    formState: { errors }
   } = useForm({
     mode: "all",
     resolver: yupResolver(registerSchema),
@@ -63,8 +60,6 @@ export const Login = () => {
     //   discount: 0
     // }
   });
-
-
 
   // ResetForm when mode changes
   useEffect(() => {
@@ -223,12 +218,6 @@ export const Login = () => {
           }
 
         </Content>
-        <button 
-          style={{position: "absolute", bottom: "3rem", left: "50%", transform: "translateX(-50%)", padding: "0.25rem 0.5rem"}}
-          onClick={() => logoutUser()}
-        >
-          Logout
-        </button>
       </Container>
     </>
   )

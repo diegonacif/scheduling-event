@@ -23,7 +23,11 @@ export const Content = styled.div `
   border-radius: 4px;
   padding: 2rem 0.75rem;
   background: var(--gray-800);
-  background: linear-gradient(135deg, var(--gray-700) 0%, var(--green-600) 50%, var(--green-400) 100%);
+  background: linear-gradient(
+    135deg, var(--gray-700) 0%, 
+    var(--red) 65%, 
+    var(--orange) 100%
+  );
 
   /* -webkit-box-shadow: 2px 2px 10px 0px #000000;  */
   box-shadow:  11px 11px 22px var(--gray-400),
@@ -67,12 +71,17 @@ export const Content = styled.div `
         .Input {
           width: 100%;
           height: 2rem;
-          border: 1px solid var(--gray-700);
+          /* border: 1px solid var(--gray-700); */
+          border: 0;
           border-radius: 4px;
           margin-top: .25rem;
-          background-color: #2C2C2C50;
+          background-color: #2C2C2C60;
           color: var(--gray-100);
           padding: 0 0.25rem;
+
+          &:focus-visible {
+            outline: 2px solid var(--orange);
+          }
         }
 
         .error-message {
@@ -99,12 +108,12 @@ export const Content = styled.div `
       border-radius: 4px;
       font-weight: 600;
       font-size: var(--text-md);
-      color: var(--green-600);
+      color: var(--red);
       cursor: pointer;
       transition: background-color 0.3s;
 
       &:disabled {
-        background-color: var(--gray-400);
+        background-color: var(--gray-500);
         cursor: not-allowed;
         transition: background-color 0.3s;
       }

@@ -19,11 +19,11 @@ export const AuthEmailProvider = ({ children }) => {
 
   const [refreshToken, setRefreshToken] = useSessionStorage('token', null);
 
-  console.log({refreshToken: !!refreshToken})
+  // console.log({refreshToken: !!refreshToken})
   
   // Firestore Loading
   const [value, loading, error] = useAuthState(auth);
-  console.log({value: value});
+  // console.log({value: value});
   useEffect(() => {
     setAuthLoading(loading);
     value && setRefreshToken(value.refreshToken)

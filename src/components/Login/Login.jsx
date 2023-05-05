@@ -20,24 +20,27 @@ export const Login = () => {
     logoutUser
   } = useContext(AuthEmailContext);
 
+  const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(true);
+
   // Yup Resolver
   const registerSchema = yup.object({
-    registerEmail: yup.string().required("Insira um email válido"),
-    registerPassword: yup.string().required("Insira uma senha"),
+    registerEmail: yup.string().email("Formato inválido de email").required("Insira um email"),
+    registerPassword: yup.string().min(4, "Mínimo de 4 caracteres").required("Insira uma senha"),
     registerPasswordConfirmation: yup.string()
     .oneOf([yup.ref('registerPassword'), null], 'Passwords must match'),
-    loginEmail: yup.string().required("Insira seu email"),
-    loginPassword: yup.string().required("Insira sua senha"),
-  }).required()
+
+    loginEmail: yup.string().email("Formato inválido de email").required("Insira seu email"),
+    loginPassword: yup.string().required("Insira sua senha").min(4, "Mínimo de 4 caracteres"),
+  }).required();
 
   // Hook Form Controller
   const {
     watch,
     register,
     // setValue,
-    // getValues,
+    getValues,
     // trigger,
-    // formState: { errors, isValid }
+    formState: { errors, isValid }
   } = useForm({
     mode: "all",
     resolver: yupResolver(registerSchema),
@@ -48,6 +51,21 @@ export const Login = () => {
     // }
   });
 
+  // Login Button Validation
+  useEffect(() => {
+      if([watch("loginEmail"), watch("loginPassword")].includes("")) {
+        setIsLoginButtonDisabled(true);
+      } else if(errors.loginEmail || errors.loginPassword ) {
+        setIsLoginButtonDisabled(true);
+      } else {
+        setIsLoginButtonDisabled(false);
+      }
+  }, [watch("loginEmail"), watch("loginPassword"), errors.loginEmail, errors.loginPassword])
+
+
+  // console.log(errors.loginPassword?.message);
+
+  // Sending form data to context
   useEffect(() => {
     setRegisterEmail(watch("registerEmail"));
     setRegisterPassword(watch("registerPassword"));
@@ -85,25 +103,37 @@ export const Login = () => {
 
                 <div className="FormField" name="email">
                   <label className="FormLabel">Email</label>
-                  <div>
+                  <div className="FormInput">
                     <input className="Input" type="email" {...register("loginEmail")} />
+                    {
+                      errors.loginEmail &&
+                      <span className="error-message">{errors.loginEmail.message}</span>
+                    }
                   </div>
                 </div>
 
                 <div className="FormField" name="question">
                   <label className="FormLabel">Senha</label>
-                  <div>
+                  <div className="FormInput">
                     <input className="Input" type="password" {...register("loginPassword")} />
+                    {
+                      errors.loginPassword &&
+                      <span className="error-message">{errors.loginPassword.message}</span>
+                    }
                   </div>
                 </div>
 
-                <button className="Button" type="submit">
+                <button 
+                  className="Button" 
+                  type="submit"
+                  disabled={isLoginButtonDisabled}
+                >
                   Login
                 </button>
 
               </form> 
               <button 
-                className="register-button"
+                className="not-registered-button"
                 onClick={() => setCurrentMode("register-mode")}
               >
                 Ainda não tenho registro

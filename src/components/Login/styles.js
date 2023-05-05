@@ -37,7 +37,7 @@ export const Content = styled.div `
     font-family: var(--font-primary);
   }
 
-  .register-button {
+  .not-registered-button {
     margin-top: 0.75rem;
     font-size: var(--text-sm);
   }
@@ -61,16 +61,29 @@ export const Content = styled.div `
         color: var(--gray-100);
       }
 
-      .Input {
-        width: 100%;
-        height: 2rem;
-        border: 1px solid var(--gray-700);
-        border-radius: 4px;
-        margin-top: .25rem;
-        background-color: #2C2C2C50;
-        color: var(--gray-100);
-        padding: 0 0.25rem;
+      .FormInput {
+        position: relative;
+
+        .Input {
+          width: 100%;
+          height: 2rem;
+          border: 1px solid var(--gray-700);
+          border-radius: 4px;
+          margin-top: .25rem;
+          background-color: #2C2C2C50;
+          color: var(--gray-100);
+          padding: 0 0.25rem;
+        }
+
+        .error-message {
+          position: absolute;
+          right: 0.5rem;
+          bottom: -1.05rem;
+          font-size: var(--text-xs);
+          color: var(--gray-300);
+        }
       }
+
 
       & + .FormField {
         margin-top: 1.25rem;
@@ -78,7 +91,7 @@ export const Content = styled.div `
     }
 
     .Button {
-      margin-top: 1.25rem;
+      margin-top: 1.75rem;
       width: 100%;
       height: 2rem;
       background-color: var(--gray-100);
@@ -88,6 +101,11 @@ export const Content = styled.div `
       font-size: var(--text-md);
       color: var(--green-600);
       cursor: pointer;
+
+      &:disabled {
+        background-color: var(--gray-400);
+        cursor: not-allowed;
+      }
     }
   }
 `

@@ -18,8 +18,14 @@ export const AuthEmailProvider = ({ children }) => {
   const [authLoading, setAuthLoading] = useState(true);
 
   const [refreshToken, setRefreshToken] = useSessionStorage('token', null);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  useEffect(() => {
+    !!refreshToken === true ?
+    setIsSignedIn(true) :
+    setIsSignedIn(false)
+  }, [refreshToken])
 
-  // console.log({refreshToken: !!refreshToken})
+  // console.log({isSignedIn: isSignedIn})
   
   // Firestore Loading
   const [value, loading, error] = useAuthState(auth);
@@ -78,7 +84,9 @@ export const AuthEmailProvider = ({ children }) => {
       setLoginPassword,
       registerUser,
       loginUser,
-      logoutUser
+      logoutUser,
+      authLoading,
+      isSignedIn
     }}>
       {children}
     </AuthEmailContext.Provider>

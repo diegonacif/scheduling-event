@@ -7,12 +7,23 @@ import {
   RegisterEvent,
 } from "./styles";
 
-
+import { db } from "../../services/firebase";
 import { NewEventModal } from "../NewEventModal/NewEventModal";
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
 
 
 export const Event = () => {
+const[events, setEvents] = useState([]);
+const eventCollectionRef = collection(db, "events");
 
+useEffect(()=> {
+  const getEvents = async () => {
+    const data = await getDocs(eventCollectionRef)
+    setEvents(data.docs.map((doc) => ({...doc.data(), id:doc.id})))
+  };
+  getEvents();
+},[]);
 
 
   return (
@@ -35,46 +46,19 @@ export const Event = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            {events.map(event => { return(
+              <tr key={event.id}>
               <td>
-                Festa do Pijama  
+                {event.event}
               </td>
-              <td>Festa</td>
-              <td>12/02/2023</td>
-              <td>14:00</td>
+              <td>{event.category}</td>
+              <td>{event.startDateTimeEvent}</td>
+              <td>{event.endDateTimeEvent}</td>
             </tr>
-            <tr>
-              <td>
-                Seminário Trabalho  
-              </td>
-              <td>Corporativo</td>
-              <td>13/02/2023</td>
-              <td>14:00</td>
-            </tr>
-            <tr>
-              <td>
-                Show John Mayer  
-              </td>
-              <td>Entretenimento</td>
-              <td>20/02/2023</td>
-              <td>14:00</td>
-            </tr>
-            <tr>
-              <td>
-                Formatura Daniel  
-              </td>
-              <td>Social</td>
-              <td>12/02/2023</td>
-              <td>14:00</td>
-            </tr>
-            <tr>
-              <td>
-                Casamento D e F  
-              </td>
-              <td>Social</td>
-              <td>12/02/2023</td>
-              <td>14:00</td>
-            </tr>
+            )
+            })}
+           
+           
           </tbody>
         </EventsTable>
 

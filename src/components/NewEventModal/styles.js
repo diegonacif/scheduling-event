@@ -13,7 +13,8 @@ export const Content = styled(Dialog.Content)`
   min-width: 32rem;
   border-radius: 6px;
   padding: 2.5rem 3rem;
-  background: var(--gray-500);
+  color: var(--gray-100);
+  background: linear-gradient(135deg, var(--gray-700) 0%, var(--red) 50%, var(--orange) 100%);;
 
   position: fixed;
   top: 50%;
@@ -31,9 +32,10 @@ export const Content = styled(Dialog.Content)`
       border-radius: 6px;
       border: 0;
       padding: 1rem;
+      background-color: var(--gray-100);
 
       &::placeholder {
-        color: var(--gray-500);
+        color: var(--gray-900);
         position: absolute;
         left: 1rem;
         top: 50%;
@@ -44,7 +46,7 @@ export const Content = styled(Dialog.Content)`
     button[type="submit"] {
       height: 58px;
       border: 0;
-      background: var(--green-400);
+      background: linear-gradient(to right, var(--orange), var(--gray-700));;
       color: var(--gray-100);
       font-weight: bold;
       padding: 0 1.25rem;

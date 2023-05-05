@@ -6,16 +6,15 @@ import { db } from "../../services/firebase";
 import {useForm} from "react-hook-form"
 
 export const NewEventModal = () => {
-const {register,handleSubmit}= useForm()
+const { register, handleSubmit }= useForm()
 
 
  async function handleCreateEvent(data){
   const event = {
     event:data.event,
     category:data.category,
-    startDateEvent:data.startDateEvent,
-    startTimeEvent:data.startTimeEvent,
-    endTimeEvent:data.endTimeEvent,
+    startDateTimeEvent:data.startDateTimeEvent,
+    endDateTimeEvent:data.endDateTimeEvent,
     location:data.location,
     description:data.description,
   };
@@ -28,7 +27,6 @@ const {register,handleSubmit}= useForm()
   }
  }
 
- addDoc("events", {id: "teste"})
   return (
     <Dialog.Portal>
       <Overlay />
@@ -36,13 +34,12 @@ const {register,handleSubmit}= useForm()
         <Dialog.Title>Novo Evento</Dialog.Title>
         <CloseButton>X</CloseButton>
         <form onSubmit={handleSubmit((data)=>handleCreateEvent(data))}>
-          <input type="text"  placeholder="Nome do Evento" ref={ register({required:true})} name="event"/>
-          <input type="text"  placeholder="Categoria" ref={ register({required:true})} name="category"/>
-          <input type="date"  placeholder="Data" ref={ register({required:true})} name="startDateEvent"/>
-          <input type="time"  placeholder="Horário de início" ref={ register({required:true})} name="startTimeEvent"/>
-          <input type="time"  placeholder="Horário de término" name=" endTimeEvent"/>
-          <input type="text"  placeholder="Local" ref={ register({required:true})} name="location"/>
-          <input type="text"  placeholder="Descrição" name="description"/>
+          <input type="text"  placeholder="Nome do Evento"  {...register("event",{required:true})}/>
+          <input type="text"  placeholder="Categoria" {...register("category",{required:true})}/>
+          <input type="datetime-local"  placeholder="Data" {...register("startDateTimeEvent",{required:true})}/>
+          <input type="datetime-local"  placeholder="Horário de término" {...register("endDateTimeEvent",{required:true})}/>
+          <input type="text"  placeholder="Local"  {...register("location",{required:true})} /> 
+          <input type="text"  placeholder="Descrição" {...register("description")} /> 
           <button type="submit" >Criar Evento</button>
         </form>
       </Content>

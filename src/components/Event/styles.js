@@ -31,7 +31,7 @@ export const EventsTable = styled.table`
   margin-bottom: 1rem;
 
   th {
-    background-color: var(--red);
+    background-color: var(--red) ;
     padding: 1.25rem 2rem;
     text-align: left;
 
@@ -69,7 +69,7 @@ export const EventsTable = styled.table`
 export const NewEventButton = styled.button`
   height: 50px;
   border: 0;
-  background-color: var(--orange);
+  background: linear-gradient(135deg, var(--gray-700) 0%, var(--red) 50%, var(--orange) 100%);
   
   font-weight: bold;
   padding: 0 1.25rem;
@@ -79,7 +79,7 @@ export const NewEventButton = styled.button`
   margin-bottom: 0.8rem;
 
   &:hover {
-    background: var(--gray-200);
+    background: var(--green-600);
     transition: background-color 0.2s;
   }
 `;

@@ -78,7 +78,7 @@ export const Content = styled.div `
         .error-message {
           position: absolute;
           right: 0.5rem;
-          bottom: -1.05rem;
+          bottom: -1.125rem;
           font-size: var(--text-xs);
           color: var(--gray-300);
         }

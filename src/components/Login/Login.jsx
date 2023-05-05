@@ -21,16 +21,17 @@ export const Login = () => {
   } = useContext(AuthEmailContext);
 
   const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(true);
+  const [isRegisterButtonDisabled, setIsRegisterButtonDisabled] = useState(true);
 
   // Yup Resolver
   const registerSchema = yup.object({
     registerEmail: yup.string().email("Formato inválido de email").required("Insira um email"),
-    registerPassword: yup.string().min(4, "Mínimo de 4 caracteres").required("Insira uma senha"),
+    registerPassword: yup.string().min(6, "Mínimo de 6 caracteres").required("Insira uma senha"),
     registerPasswordConfirmation: yup.string()
     .oneOf([yup.ref('registerPassword'), null], 'Passwords must match'),
 
     loginEmail: yup.string().email("Formato inválido de email").required("Insira seu email"),
-    loginPassword: yup.string().required("Insira sua senha").min(4, "Mínimo de 4 caracteres"),
+    loginPassword: yup.string().required("Insira sua senha").min(6, "Mínimo de 6 caracteres"),
   }).required();
 
   // Hook Form Controller
@@ -39,7 +40,7 @@ export const Login = () => {
     register,
     // setValue,
     // getValues,
-    // trigger,
+    trigger,
     reset,
     formState: { errors, isValid }
   } = useForm({
@@ -51,8 +52,10 @@ export const Login = () => {
     //   discount: 0
     // }
   });
-  // ResetForm when mode changes
 
+
+
+  // ResetForm when mode changes
   useEffect(() => {
     reset();
   }, [currentMode])
@@ -68,8 +71,22 @@ export const Login = () => {
       }
   }, [watch("loginEmail"), watch("loginPassword"), errors.loginEmail, errors.loginPassword])
 
-
-  // console.log(errors.loginPassword?.message);
+  // Register Button Validation
+  useEffect(() => {
+    if([watch("registerEmail"), watch("registerPassword"), watch("registerPasswordConfirmation")].includes("")) {
+      setIsRegisterButtonDisabled(true);
+    } else if(errors.registerEmail || errors.registerPassword || errors.registerPasswordConfirmation ) {
+      setIsRegisterButtonDisabled(true);
+    } else {
+      setIsRegisterButtonDisabled(false);
+    }
+}, [watch("registerEmail"), watch("registerPassword"), watch("registerPasswordConfirmation"), errors.registerEmail, errors.registerPassword, errors.registerPasswordConfirmation])
+  
+// Forcing password confirmation validation
+  useEffect(() => {
+    trigger("registerPasswordConfirmation")
+  }, [watch("registerPassword")])
+  
 
   // Sending form data to context
   useEffect(() => {
@@ -157,6 +174,10 @@ export const Login = () => {
                   <label className="FormLabel">Email</label>
                   <div className="FormInput">
                     <input className="Input" type="email" {...register("registerEmail")} />
+                    {
+                      errors.registerEmail &&
+                      <span className="error-message">{errors.registerEmail.message}</span>
+                    }
                   </div>
                 </div>
 
@@ -164,6 +185,10 @@ export const Login = () => {
                   <label className="FormLabel">Senha</label>
                   <div className="FormInput">
                     <input className="Input" type="password" {...register("registerPassword")} />
+                    {
+                      errors.registerPassword &&
+                      <span className="error-message">{errors.registerPassword.message}</span>
+                    }
                   </div>
                 </div>
 
@@ -171,11 +196,15 @@ export const Login = () => {
                   <label className="FormLabel">Repita a senha</label>
                   <div className="FormInput">
                     <input className="Input" type="password" {...register("registerPasswordConfirmation")}/>
+                    {
+                      errors.registerPasswordConfirmation &&
+                      <span className="error-message">{errors.registerPasswordConfirmation.message}</span>
+                    }
                   </div>
                 </div>
 
                 
-                <button className="Button" type="submit">
+                <button className="Button" type="submit" disabled={isRegisterButtonDisabled}>
                   Registrar
                 </button>
               </form>

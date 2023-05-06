@@ -68,18 +68,21 @@ export const Content = styled.div `
 
       .FormInput {
         position: relative;
-
+        margin-top: .25rem;
 
         .Input {
           width: 100%;
           height: 2rem;
-          /* border: 1px solid var(--gray-700); */
+          font-size: var(--text-sm);
           border: 0;
           border-radius: 4px;
-          margin-top: .25rem;
           background-color: #2C2C2C60;
           color: var(--gray-100);
           padding: 0 0.25rem;
+
+          &.password-input {
+            padding-right: 2.75rem;
+          }
 
           &:focus-visible {
             outline: 2px solid var(--orange);
@@ -93,6 +96,15 @@ export const Content = styled.div `
           font-size: var(--text-xs);
           font-weight: 500;
           color: var(--gray-300);
+        }
+
+        svg {
+          position: absolute;
+          top: 50%;
+          right: 0.5rem;
+          transform: translateY(-50%);
+          color: var(--gray-400);
+          cursor: pointer;
         }
       }
 

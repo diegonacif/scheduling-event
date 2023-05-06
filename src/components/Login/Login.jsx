@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { GlobalStyle } from '../../GlobalStyle';
 import { Container, Content } from './styles';
-import { X } from 'phosphor-react';
+import { Eye, EyeSlash, X } from 'phosphor-react';
 import { AuthEmailContext } from '../../contexts/AuthEmailProvider';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -32,6 +32,7 @@ export const Login = () => {
 
   const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(true);
   const [isRegisterButtonDisabled, setIsRegisterButtonDisabled] = useState(true);
+  
 
   // Yup Resolver
   const registerSchema = yup.object({
@@ -61,13 +62,18 @@ export const Login = () => {
     // }
   });
 
-  // ResetForm when mode changes
+  // Is password show
+  const [isPasswordShow, setIsPasswordShow] = useState(false);
+
+  // ResetForm and password show when mode changes
   useEffect(() => {
     if(currentMode === "register-mode") {
       setIsLoginButtonDisabled(true);
+      setIsPasswordShow(false);
       reset();
     } else if (currentMode === "login-mode") {
       setIsRegisterButtonDisabled(true);
+      setIsPasswordShow(false);
       reset();
     } else {
       return;
@@ -152,7 +158,12 @@ export const Login = () => {
                 <div className="FormField" name="question">
                   <label className="FormLabel">Senha</label>
                   <div className="FormInput">
-                    <input className="Input" type="password" {...register("loginPassword")} />
+                    <input className="Input password-input" type={isPasswordShow ? "string" : "password"} {...register("loginPassword")} />
+                    {
+                      isPasswordShow ?
+                      <Eye size={26} onClick={() => setIsPasswordShow(current => !current)} /> :
+                      <EyeSlash size={26} onClick={() => setIsPasswordShow(current => !current)} /> 
+                    }
                     {
                       errors.loginPassword &&
                       <span className="error-message">{errors.loginPassword.message}</span>
@@ -198,7 +209,12 @@ export const Login = () => {
                 <div className="FormField" name="question">
                   <label className="FormLabel">Senha</label>
                   <div className="FormInput">
-                    <input className="Input" type="password" {...register("registerPassword")} />
+                    <input className="Input password-input" type={isPasswordShow ? "string" : "password"} {...register("registerPassword")} />
+                    {
+                      isPasswordShow ?
+                      <Eye size={26} onClick={() => setIsPasswordShow(current => !current)} /> :
+                      <EyeSlash size={26} onClick={() => setIsPasswordShow(current => !current)} /> 
+                    }
                     {
                       errors.registerPassword &&
                       <span className="error-message">{errors.registerPassword.message}</span>
@@ -209,7 +225,7 @@ export const Login = () => {
                 <div className="FormField" name="question">
                   <label className="FormLabel">Repita a senha</label>
                   <div className="FormInput">
-                    <input className="Input" type="password" {...register("registerPasswordConfirmation")}/>
+                    <input className="Input password-input" type={isPasswordShow ? "string" : "password"} {...register("registerPasswordConfirmation")}/>
                     {
                       errors.registerPasswordConfirmation &&
                       <span className="error-message">{errors.registerPasswordConfirmation.message}</span>

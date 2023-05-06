@@ -63,7 +63,15 @@ export const Login = () => {
 
   // ResetForm when mode changes
   useEffect(() => {
-    reset();
+    if(currentMode === "register-mode") {
+      setIsLoginButtonDisabled(true);
+      reset();
+    } else if (currentMode === "login-mode") {
+      setIsRegisterButtonDisabled(true);
+      reset();
+    } else {
+      return;
+    }
   }, [currentMode])
 
   // Login Button Validation

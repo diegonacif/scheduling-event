@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 
 import { GlobalStyle } from '../../GlobalStyle';
-import { Container, Content } from './styles';
 import { Eye, EyeSlash, X } from 'phosphor-react';
 import { AuthEmailContext } from '../../contexts/AuthEmailProvider';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
+import { Container, Content } from './styles';
+import { Toasts } from '../Toasts/Toasts';
 
 export const Login = () => {
   const [currentMode, setCurrentMode] = useState("login-mode")
@@ -131,7 +132,7 @@ export const Login = () => {
     e.preventDefault();
     loginUser();
   }
-
+  
   return (
     <>
       <GlobalStyle />
@@ -242,6 +243,7 @@ export const Login = () => {
           }
 
         </Content>
+        <Toasts />
       </Container>
     </>
   )

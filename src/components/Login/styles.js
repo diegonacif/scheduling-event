@@ -9,7 +9,6 @@ export const Container = styled.section `
   background-color: var(--gray-200);
   color: var(--gray-800);
   padding: 0 0.75rem;
-  font-family: var(--font-primary);
 `
 export const Content = styled.div `
   position: relative;
@@ -38,12 +37,12 @@ export const Content = styled.div `
     border: 0;
     color: var(--gray-100);
     cursor: pointer;
-    font-family: var(--font-primary);
   }
 
   .not-registered-button {
-    margin-top: 0.75rem;
+    margin-top: 1rem;
     font-size: var(--text-sm);
+    font-weight: 500;
   }
 
   .close-button {
@@ -55,6 +54,7 @@ export const Content = styled.div `
   .FormRoot {
     width: 100%;
     max-width: 15rem;
+    
 
     .FormField {
       width: 100%;
@@ -63,10 +63,12 @@ export const Content = styled.div `
         font-size: 0.875rem;
         font-size: var(--text-md);
         color: var(--gray-100);
+        margin-left: 0.125rem;
       }
 
       .FormInput {
         position: relative;
+
 
         .Input {
           width: 100%;
@@ -86,9 +88,10 @@ export const Content = styled.div `
 
         .error-message {
           position: absolute;
-          right: 0.5rem;
+          right: 0.25rem;
           bottom: -1.125rem;
           font-size: var(--text-xs);
+          font-weight: 500;
           color: var(--gray-300);
         }
       }
@@ -110,12 +113,13 @@ export const Content = styled.div `
       font-size: var(--text-md);
       color: var(--red);
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: filter 0.3s;
 
       &:disabled {
-        background-color: var(--gray-500);
+        /* background-color: #F2F2F250; */
         cursor: not-allowed;
-        transition: background-color 0.3s;
+        transition: filter 0.3s;
+        filter: opacity(0.4)
       }
     }
   }

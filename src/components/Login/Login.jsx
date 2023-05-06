@@ -76,7 +76,7 @@ export const Login = () => {
 
   // Login Button Validation
   useEffect(() => {
-      if([watch("loginEmail"), watch("loginPassword")].includes("")) {
+      if([watch("loginEmail"), watch("loginPassword")].some(val => val === undefined || val === "")) {
         setIsLoginButtonDisabled(true);
       } else if(errors.loginEmail || errors.loginPassword ) {
         setIsLoginButtonDisabled(true);
@@ -87,7 +87,7 @@ export const Login = () => {
 
   // Register Button Validation
   useEffect(() => {
-    if([watch("registerEmail"), watch("registerPassword"), watch("registerPasswordConfirmation")].includes("")) {
+    if([watch("registerEmail"), watch("registerPassword"), watch("registerPasswordConfirmation")].some(val => val === undefined || val === "")) {
       setIsRegisterButtonDisabled(true);
     } else if(errors.registerEmail || errors.registerPassword || errors.registerPasswordConfirmation ) {
       setIsRegisterButtonDisabled(true);

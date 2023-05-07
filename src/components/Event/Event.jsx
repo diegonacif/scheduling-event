@@ -10,64 +10,93 @@ import {
 import { db } from "../../services/firebase";
 import { NewEventModal } from "../NewEventModal/NewEventModal";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 
 export const Event = () => {
-const[events, setEvents] = useState([]);
-const eventCollectionRef = collection(db, "events");
-const [refresh, setRefresh] = useState(false);
+  const [events, setEvents] = useState([]);
+  const [open, setOpen] = useState(false);
+  const eventCollectionRef = collection(db, "events");
 
-useEffect(()=> {
   const getEvents = async () => {
-    const data = await getDocs(eventCollectionRef)
-    setEvents(data.docs.map((doc) => ({...doc.data(), id:doc.id})))
+    const data = await getDocs(eventCollectionRef);
+    setEvents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
-  getEvents();
-},[refresh]);
 
+  useEffect(() => {
+    getEvents();
+  }, []);
+
+  async function handleDeleteEvent(id) {
+    console.log(id);
+    const eventDoc = doc(db, "events", id);
+    await deleteDoc(eventDoc);
+    getEvents();
+  }
 
   return (
     <>
       <Header />
-      <RegisterEvent>
-        <strong>
-          Olá Rafaella, você ainda não tem nenhum evento cadastrado.
-        </strong>
-        <span>Crie seus Eventos e Organize sua agenda</span>
-      </RegisterEvent>
       <EventsContainer>
         <EventsTable>
-          <thead>
-            <tr>
-              <th>Evento</th>
-              <th>Categoria</th>
-              <th>Data</th>
-              <th>Horário</th>
-            </tr>
-          </thead>
-          <tbody>
-            {events.map(event => { return(
-              <tr key={event.id}>
-              <td>
-                {event.event}
-              </td>
-              <td>{event.category}</td>
-              <td>{event.startDateTimeEvent}</td>
-              <td>{event.endDateTimeEvent}</td>
-            </tr>
-            )
-            })}
-           
-           
-          </tbody>
-        </EventsTable>
+          {events.length > 0 ? (
+            <>
+              <thead>
+                <tr>
+                  <th>Evento</th>
+                  <th>Categoria</th>
+                  <th>Data e Hora de Início</th>
+                  <th>Data e Hora do Término</th>
+                </tr>
+              </thead>
+              <tbody>
+                {events.map((event) => {
+                  const options = {
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    second: "numeric",
+                  };
+                  const myStartDate = new Date(event.startDateTimeEvent);
+                  const myEndDate = new Date(event.endDateTimeEvent);
+                  const dateFormatter = new Intl.DateTimeFormat(
+                    "pt-BR",
+                    options
+                  );
+                  const formattedStartDate = dateFormatter.format(myStartDate);
+                  const formattedEndDate = dateFormatter.format(myEndDate);
 
-        <Dialog.Root>
+                  return (
+                    <tr key={event.id}>
+                      <td>
+                        {event.event}{" "}
+                        <button onClick={() => handleDeleteEvent(event.id)}>
+                          deletar
+                        </button>
+                      </td>
+                      <td>{event.category}</td>
+                      <td>{formattedStartDate}</td>
+                      <td>{formattedEndDate}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </>
+          ) : (
+            <RegisterEvent>
+              <strong>
+                Olá Rafaella, você ainda não tem nenhum evento cadastrado.
+              </strong>
+              <span>Crie seus Eventos e Organize sua agenda</span>
+            </RegisterEvent>
+          )}
+        </EventsTable>
+        <Dialog.Root open={open} onOpenChange={setOpen}>
           <Dialog.Trigger asChild>
             <NewEventButton>Criar Evento</NewEventButton>
           </Dialog.Trigger>
-          <NewEventModal setRefresh={setRefresh} />
+          <NewEventModal getEvents={getEvents} setOpen={setOpen} />
         </Dialog.Root>
       </EventsContainer>
     </>

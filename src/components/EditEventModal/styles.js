@@ -10,14 +10,12 @@ export const Overlay = styled(Dialog.Overlay)`
 `;
 
 export const Content = styled(Dialog.Content)`
-  display:flex;
-	flex-direction: column;
-	justify-content: center;
-	justify-content: space-between;
-	margin-top: 1rem;
-	min-width: 32rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  min-width: 32rem;
   border-radius: 6px;
-  padding: 2.5rem 3rem;s
+  padding: 2.5rem 3rem;
   color: var(--gray-100);
   background: linear-gradient(
     135deg,
@@ -33,7 +31,6 @@ export const Content = styled(Dialog.Content)`
 
   form {
     margin-top: 2rem;
-
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -52,31 +49,29 @@ export const Content = styled(Dialog.Content)`
         transform: translateY(-50%);
       }
     }
-
-    button[type="submit"] {
-      height: 58px;
-      border: 0;
-      background: linear-gradient(to right, var(--orange), var(--gray-700));
-      color: var(--gray-100);
-      font-weight: bold;
-      padding: 0 1.25rem;
-      border-radius: 6px;
-      margin-top: 1.5rem;
-      cursor: pointer;
-
-      &:disabled {
-        opacity: 0.6;
-        cursor: pointer;
-      }
-
-      &:not(:disabled):hover {
-        background: var(--green-600);
-        transition: background-color 0.2s;
-      }
-    }
   }
 `;
+export const Button = styled.button`
+  height: 58px;
+  border: 0;
+  background: linear-gradient(to right, var(--orange), var(--gray-700));
+  color: var(--gray-100);
+  font-weight: bold;
+  border-radius: 6px;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  min-width: 5rem;
 
+  &:disabled {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+
+  &:not(:disabled):hover {
+    background: var(--green-600);
+    transition: background-color 0.2s;
+  }
+`;
 export const EditButton = styled.button`
   border: none;
   background-color: transparent;

@@ -1,5 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { Overlay, Content, CloseButton, EditButton } from "./styles";
+import { Overlay, Content, CloseButton, EditButton, Button } from "./styles";
 import { db } from "../../services/firebase";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useForm } from "react-hook-form";
@@ -86,9 +86,9 @@ export const EditEventModal = ({ event, getEvents }) => {
               defaultValue={event.description}
             />
 
-            <button type="submit">Editar Evento</button>
+            <Button type="submit">Editar Evento</Button>
           </form>
-          <button onClick={() => handleDeleteEvent(event.id)}>deletar</button>
+          <Button onClick={() => handleDeleteEvent(event.id)}>Deletar</Button>
         </Content>
       </Dialog.Portal>
     </Dialog.Root>

@@ -1,5 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { Overlay, Content, CloseButton } from "./styles";
+import { Overlay, Content, CloseButton, EditButton } from "./styles";
 import { db } from "../../services/firebase";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useForm } from "react-hook-form";
@@ -41,12 +41,12 @@ export const EditEventModal = ({ event, getEvents }) => {
   return (
     <Dialog.Root open={openEditModal} onOpenChange={setOpenEditModal}>
       <Dialog.Trigger asChild>
-        <button>{event.event}</button>
+        <EditButton>{event.event}</EditButton>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Overlay />
         <Content>
-          <Dialog.Title>Novo Evento</Dialog.Title>
+          <Dialog.Title>Evento</Dialog.Title>
           <CloseButton>X</CloseButton>
           <form onSubmit={handleSubmit((data) => handleUpdateEvent(data))}>
             <input

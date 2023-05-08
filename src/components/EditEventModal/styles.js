@@ -10,9 +10,14 @@ export const Overlay = styled(Dialog.Overlay)`
 `;
 
 export const Content = styled(Dialog.Content)`
-  min-width: 32rem;
+  display:flex;
+	flex-direction: column;
+	justify-content: center;
+	justify-content: space-between;
+	margin-top: 1rem;
+	min-width: 32rem;
   border-radius: 6px;
-  padding: 2.5rem 3rem;
+  padding: 2.5rem 3rem;s
   color: var(--gray-100);
   background: linear-gradient(
     135deg,
@@ -69,6 +74,18 @@ export const Content = styled(Dialog.Content)`
         transition: background-color 0.2s;
       }
     }
+  }
+`;
+
+export const EditButton = styled.button`
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: var(--text-md);
+
+  &:hover {
+    border-bottom: 1px solid var(--green-600);
   }
 `;
 

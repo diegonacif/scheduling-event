@@ -10,7 +10,8 @@ import {
 import { db } from "../../services/firebase";
 import { NewEventModal } from "../NewEventModal/NewEventModal";
 import { useEffect, useState } from "react";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
+import { EditEventModal } from "../EditEventModal/EditEventModal";
 
 export const Event = () => {
   const [events, setEvents] = useState([]);
@@ -25,13 +26,6 @@ export const Event = () => {
   useEffect(() => {
     getEvents();
   }, []);
-
-  async function handleDeleteEvent(id) {
-    console.log(id);
-    const eventDoc = doc(db, "events", id);
-    await deleteDoc(eventDoc);
-    getEvents();
-  }
 
   return (
     <>
@@ -70,10 +64,7 @@ export const Event = () => {
                   return (
                     <tr key={event.id}>
                       <td>
-                        {event.event}{" "}
-                        <button onClick={() => handleDeleteEvent(event.id)}>
-                          deletar
-                        </button>
+                        <EditEventModal event={event} getEvents={getEvents} />
                       </td>
                       <td>{event.category}</td>
                       <td>{formattedStartDate}</td>

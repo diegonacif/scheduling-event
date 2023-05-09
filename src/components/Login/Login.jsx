@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Content } from './styles';
 import { Toasts } from '../Toasts/Toasts';
 
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../assets/event-logo.png';
 
 export const Login = () => {
   const [currentMode, setCurrentMode] = useState("login-mode")
@@ -139,8 +139,11 @@ export const Login = () => {
     <>
       <GlobalStyle />
       <Container>
-        <img src={logoImg} alt="" />
         <Content>
+          <div className="logo-wrapper">
+            <img src={logoImg} alt="event scheduler logo" id="logoImg" />
+            <img src={logoImg} alt="event scheduler logo background" id="logoImgBg" />
+          </div>
           {
             currentMode === "login-mode" ?
 

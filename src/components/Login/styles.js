@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.section `
   display: flex;
   flex-direction: column;
-  row-gap: 0.5rem;
+  /* row-gap: 2rem; */
   align-items: center;
   justify-content: center;
   width: 100vw;
@@ -34,6 +34,27 @@ export const Content = styled.div `
   box-shadow:  11px 11px 22px var(--gray-400),
               -11px -11px 22px #ffffff;
 
+  .logo-wrapper {
+    position: relative;
+
+    #logoImg {
+      position: relative;
+      width: 12rem;
+      z-index: 10;
+    }
+    
+    #logoImgBg {
+      position: absolute;
+      top: 2px;
+      left: 3px;
+      width: 12rem;
+      mix-blend-mode: multiply;
+      filter: blur(4px);
+      z-index: 5;
+    }
+  }
+
+
   button {
     background-color: transparent;
     border: 0;
@@ -56,7 +77,7 @@ export const Content = styled.div `
   .FormRoot {
     width: 100%;
     max-width: 15rem;
-    
+    margin-top: 1.5rem;
 
     .FormField {
       width: 100%;

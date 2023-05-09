@@ -35,22 +35,36 @@ export const Content = styled.div `
               -11px -11px 22px #ffffff;
 
   .logo-wrapper {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    #logoImg {
+    .logo-img-wrapper {
       position: relative;
-      width: 12rem;
-      z-index: 10;
+  
+      #logoImg {
+        position: relative;
+        height: 4rem;
+        z-index: 10;
+      }
+      
+      #logoImgBg {
+        position: absolute;
+        top: 2px;
+        left: 3px;
+        height: 4rem;
+        mix-blend-mode: multiply;
+        filter: blur(4px);
+        z-index: 5;
+      }
     }
-    
-    #logoImgBg {
-      position: absolute;
-      top: 2px;
-      left: 3px;
-      width: 12rem;
-      mix-blend-mode: multiply;
-      filter: blur(4px);
-      z-index: 5;
+
+    #logo-title {
+      color: white;
+      font-size: var(--text-xl);
+      margin-top: 0.5rem;
+      text-shadow: 2px 2px 2px #00000060;
     }
   }
 

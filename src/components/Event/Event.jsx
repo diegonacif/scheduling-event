@@ -83,12 +83,14 @@ export const Event = () => {
             </RegisterEvent>
           )}
         </EventsTable>
-        <Dialog.Root open={open} onOpenChange={setOpen}>
-          <Dialog.Trigger asChild>
-            <NewEventButton>Criar Evento</NewEventButton>
-          </Dialog.Trigger>
-          <NewEventModal getEvents={getEvents} setOpen={setOpen} />
-        </Dialog.Root>
+        <div className="new-event-wrapper">
+          <Dialog.Root open={open} onOpenChange={setOpen}>
+            <Dialog.Trigger asChild>
+              <NewEventButton>Criar Evento</NewEventButton>
+            </Dialog.Trigger>
+            <NewEventModal getEvents={getEvents} setOpen={setOpen} />
+          </Dialog.Root>
+        </div>
       </EventsContainer>
     </>
   );

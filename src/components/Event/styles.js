@@ -16,12 +16,20 @@ export const EventsContainer = styled.main`
   flex-direction: column;
   /* align-items: center; */
   justify-content: center;
-  width: 100%;
+  width: 100vw;
   margin: 0 auto;
-  padding: 0 1.5rem;
-  overflow-x: scroll;
+  padding: 1.5rem 1.5rem;
+  overflow-x: auto;
 
   /* box-sizing: content-box; */
+
+  .new-event-wrapper {
+    display: flex;
+    justify-content: end;
+    position: relative;
+    width: 100%;
+    min-width: 53rem;
+  }
 `;
 
 export const EventsTable = styled.table`
@@ -29,8 +37,8 @@ export const EventsTable = styled.table`
   min-width: 53rem;
   border-collapse: separate;
   border-spacing: 0 0.5rem;
-  margin-top: 1.5rem;
-  margin-bottom: 4rem;
+  /* margin-top: 1.5rem; */
+  /* margin-bottom: 4rem; */
 
   th {
     background-color: var(--red) ;
@@ -69,7 +77,7 @@ export const EventsTable = styled.table`
 `;
 
 export const NewEventButton = styled.button`
-  position: absolute;
+  position: sticky;
   right: 0;
   bottom: 0;
   width: fit-content;
@@ -82,7 +90,7 @@ export const NewEventButton = styled.button`
   border-radius: 6px;
   cursor: pointer;
   /* margin-left: auto; */
-  margin-bottom: 0.75rem;
+  margin-top: 2rem;
   color: var(--gray-100);
 
   &:hover {

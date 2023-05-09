@@ -18,17 +18,56 @@ export const AuthEmailProvider = ({ children }) => {
   const [authLoading, setAuthLoading] = useState(true);
 
   const [refreshToken, setRefreshToken] = useSessionStorage('token', null);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  useEffect(() => {
+    !!refreshToken === true ?
+    setIsSignedIn(true) :
+    setIsSignedIn(false)
+  }, [refreshToken])
 
-  console.log({refreshToken: !!refreshToken})
-  
+  const [lastError, setLastError] = useState({});
+  const [newErrorCode, setNewErrorCode] = useState("");
+  const [newErrorSection, setNewErrorSection] = useState("");
+  const [toastRefresh, setToastRefresh] = useState(false);
+
+  // console.log(lastError)
+
+  useEffect(() => {
+    setLastError({
+      code: newErrorCode,
+      section: newErrorSection
+    })
+  }, [newErrorCode, newErrorSection])
+
+  const handleLastError = (code, section) => {
+    if(code === "auth/user-not-found") {
+      setNewErrorCode("Usuário não encontrado");
+    } else if (code === "auth/wrong-password") {
+      setNewErrorCode("Senha inválida");
+    } else if (code === "auth/email-already-in-use") {
+      setNewErrorCode("Email já cadastrado.");
+    } else {
+      setNewErrorCode("Erro ao logar-se / registrar-se");
+      console.log({code: code, section: section});
+    }
+
+    if(section === "login") {
+      setNewErrorSection("Erro ao logar-se");
+    } else if(section === "register") {
+      setNewErrorSection("Erro ao registrar-se");
+    } else (
+      setNewErrorSection("")
+    )
+
+    setToastRefresh(current => !current)
+  }
+
   // Firestore Loading
-  const [value, loading, error] = useAuthState(auth);
-  console.log({value: value});
+  const [value, loading] = useAuthState(auth);
+  // console.log({value: value});
   useEffect(() => {
     setAuthLoading(loading);
-    value && setRefreshToken(value.refreshToken)
-    error && console.log(error)
-    
+    setRefreshToken(value?.refreshToken);
   }, [loading]);
 
 
@@ -40,9 +79,9 @@ export const AuthEmailProvider = ({ children }) => {
         registerPassword
       );
       setRefreshToken(user.user.refreshToken);
-      console.log("Register success!")
+      console.log("Register success!");
     } catch (error) {
-      console.log(error.message)
+      handleLastError(error.code, "register");
     }
   };
 
@@ -56,7 +95,7 @@ export const AuthEmailProvider = ({ children }) => {
       setRefreshToken(user.user.refreshToken);
       console.log("Login success!");
     } catch (error) {
-      console.log(error.message);
+      handleLastError(error.code, "login");
     }
   };
 
@@ -66,7 +105,7 @@ export const AuthEmailProvider = ({ children }) => {
       setRefreshToken(null);
       console.log("Logout success!");
     } catch (error) {
-      console.log(error.message);
+      handleLastError(error.code, "logout")
     }
   }
 
@@ -78,7 +117,11 @@ export const AuthEmailProvider = ({ children }) => {
       setLoginPassword,
       registerUser,
       loginUser,
-      logoutUser
+      logoutUser,
+      authLoading,
+      isSignedIn,
+      lastError,
+      toastRefresh
     }}>
       {children}
     </AuthEmailContext.Provider>

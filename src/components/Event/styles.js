@@ -11,24 +11,26 @@ export const RegisterEvent = styled.div`
   
 `;
 export const EventsContainer = styled.main`
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   width: 100%;
-  max-width: 1120px;
   margin: 0 auto;
   padding: 0 1.5rem;
- 
-  box-sizing: content-box;
+  overflow-x: scroll;
+
+  /* box-sizing: content-box; */
 `;
 
 export const EventsTable = styled.table`
   width: 100%;
+  min-width: 53rem;
   border-collapse: separate;
   border-spacing: 0 0.5rem;
   margin-top: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
 
   th {
     background-color: var(--red) ;
@@ -67,16 +69,21 @@ export const EventsTable = styled.table`
 `;
 
 export const NewEventButton = styled.button`
-  height: 50px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: fit-content;
+  height: fit-content;
   border: 0;
   background: linear-gradient(135deg, var(--gray-700) 0%, var(--red) 50%, var(--orange) 100%);
   
-  font-weight: bold;
-  padding: 0 1.25rem;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
   border-radius: 6px;
   cursor: pointer;
-  margin-left: auto;
-  margin-bottom: 0.8rem;
+  /* margin-left: auto; */
+  margin-bottom: 0.75rem;
+  color: var(--gray-100);
 
   &:hover {
     background: var(--green-600);

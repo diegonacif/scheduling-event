@@ -7,6 +7,7 @@ export const Overlay = styled(Dialog.Overlay)`
   height: 100vh;
   inset: 0;
   background: rgba(0, 0, 0, 0.75);
+  z-index: 99;
 `;
 
 export const Content = styled(Dialog.Content)`
@@ -26,6 +27,7 @@ export const Content = styled(Dialog.Content)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 99;
 
   h2 {
     font-weight: 500;

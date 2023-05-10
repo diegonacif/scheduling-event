@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { HeaderContainer, HeaderContent } from "./styles";
-import { CalendarX , SignOut} from "phosphor-react";
+import { SignOut} from "phosphor-react";
 import { AuthEmailContext } from "../../contexts/AuthEmailProvider";
 import logoImg from "../../assets/event-logo-only.png";
 
@@ -18,8 +18,6 @@ export const Header = () => {
         <div className="logout-wraper">
           <SignOut onClick={() => logoutUser()} weight="bold" size={28}/>
         </div>
-        {/* <CalendarX size={60} /> */}
-        {/* <strong>Create and Schedule Your Event</strong> */}
       </HeaderContent>
       
     </HeaderContainer>

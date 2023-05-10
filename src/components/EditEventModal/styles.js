@@ -6,7 +6,8 @@ export const Overlay = styled(Dialog.Overlay)`
   width: 100vw;
   height: 100vh;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
+  /* background: rgba(0, 0, 0, 0.75); */
+  background: rgba(229, 231, 235, 0.75);
   z-index: 99;
 `;
 
@@ -59,7 +60,8 @@ export const Content = styled(Dialog.Content)`
       border-radius: 6px;
       border: 0;
       padding: 1rem;
-      background-color: #f2f2f250;
+      /* background-color: #f2f2f250; */
+      background-color: #2C2C2C60;
       font-size: var(--text-md);
       color: var(--gray-100);
 

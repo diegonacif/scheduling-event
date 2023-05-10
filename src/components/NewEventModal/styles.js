@@ -10,16 +10,21 @@ export const Overlay = styled(Dialog.Overlay)`
 `;
 
 export const Content = styled(Dialog.Content)`
-  min-width: 32rem;
+  width: 90vw;
+  max-width: 32rem;
   border-radius: 6px;
   padding: 2.5rem 3rem;
   color: var(--gray-100);
-  background: linear-gradient(135deg, var(--gray-700) 0%, var(--red) 50%, var(--orange) 100%);;
+  background: linear-gradient(135deg, var(--gray-700) 0%, var(--red) 50%, var(--orange) 100%);
 
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  h2 {
+    font-weight: 500;
+  }
 
   form {
     margin-top: 2rem;
@@ -33,6 +38,7 @@ export const Content = styled(Dialog.Content)`
       border: 0;
       padding: 1rem;
       background-color: var(--gray-100);
+      font-size: var(--text-md);
 
       &::placeholder {
         color: var(--gray-900);
@@ -46,13 +52,16 @@ export const Content = styled(Dialog.Content)`
     button[type="submit"] {
       height: 58px;
       border: 0;
-      background: linear-gradient(to right, var(--orange), var(--gray-700));;
-      color: var(--gray-100);
-      font-weight: bold;
+      /* background: linear-gradient(to right, var(--orange), var(--gray-700));; */
+      background-color: var(--gray-300);
+      color: var(--red);
+      font-size: var(--text-md);
+      font-weight: 600;
       padding: 0 1.25rem;
       border-radius: 6px;
       margin-top: 1.5rem;
       cursor: pointer;
+      transition: background-color 0.1s;
 
       &:disabled {
         opacity: 0.6;
@@ -60,8 +69,8 @@ export const Content = styled(Dialog.Content)`
       }
 
       &:not(:disabled):hover {
-        background: var(--green-600);
-        transition: background-color 0.2s;
+        background-color: var(--gray-100);;
+        transition: background-color 0.3s;
       }
     }
   }
@@ -75,5 +84,6 @@ export const CloseButton = styled(Dialog.Close)`
   right: 1.5rem;
   line-height: 0;
   cursor: pointer;
-  color: var(--gray-700);
+  color: var(--gray-300);
+  font-size: var(--text-lg);
 `;

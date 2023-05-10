@@ -15,7 +15,12 @@ export const Content = styled(Dialog.Content)`
   border-radius: 6px;
   padding: 2.5rem 3rem;
   color: var(--gray-100);
-  background: linear-gradient(135deg, var(--gray-700) 0%, var(--red) 50%, var(--orange) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--gray-700) 0%,
+    var(--red) 50%,
+    var(--orange) 100%
+  );
 
   position: fixed;
   top: 50%;
@@ -37,15 +42,18 @@ export const Content = styled(Dialog.Content)`
       border-radius: 6px;
       border: 0;
       padding: 1rem;
-      background-color: var(--gray-100);
+      background-color: #f2f2f250;
       font-size: var(--text-md);
-
+      color: var(--gray-100);
       &::placeholder {
-        color: var(--gray-900);
+        color: var(--gray-100);
         position: absolute;
         left: 1rem;
         top: 50%;
         transform: translateY(-50%);
+      }
+      &:focus-visible {
+        outline: 2px solid var(--orange);
       }
     }
 
@@ -53,7 +61,7 @@ export const Content = styled(Dialog.Content)`
       height: 58px;
       border: 0;
       /* background: linear-gradient(to right, var(--orange), var(--gray-700));; */
-      background-color: var(--gray-300);
+      background-color: var(--gray-200);
       color: var(--red);
       font-size: var(--text-md);
       font-weight: 600;
@@ -69,7 +77,7 @@ export const Content = styled(Dialog.Content)`
       }
 
       &:not(:disabled):hover {
-        background-color: var(--gray-100);;
+        background-color: var(--gray-100);
         transition: background-color 0.3s;
       }
     }

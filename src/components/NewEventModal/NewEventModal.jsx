@@ -4,9 +4,13 @@ import { CloseButton, Content, Overlay } from "./styles";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../services/firebase";
 import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { AuthEmailContext } from "../../contexts/AuthEmailProvider";
 
 export const NewEventModal = ({ getEvents, setOpen }) => {
   const { register, handleSubmit, reset } = useForm();
+  const { userId } = useContext(AuthEmailContext);
+  console.log(userId);
 
   async function handleCreateEvent(data) {
     const event = {
@@ -19,7 +23,7 @@ export const NewEventModal = ({ getEvents, setOpen }) => {
     };
 
     try {
-      const docRef = await addDoc(collection(db, "events"), event);
+      const docRef = await addDoc(collection(db, userId), event);
       console.log("Evento adicionado com sucesso", docRef.id);
       getEvents();
       reset();

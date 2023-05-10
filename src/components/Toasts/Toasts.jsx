@@ -7,7 +7,7 @@ export const Toasts = () => {
   const [open, setOpen] = useState(false);
 
   const { lastError, toastRefresh } = useContext(AuthEmailContext)
-  console.log(lastError)
+  // console.log(lastError)
   
   const isMounted = useRef(false);
   useEffect(() => {

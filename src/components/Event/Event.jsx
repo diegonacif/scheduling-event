@@ -9,14 +9,16 @@ import {
 
 import { db } from "../../services/firebase";
 import { NewEventModal } from "../NewEventModal/NewEventModal";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { EditEventModal } from "../EditEventModal/EditEventModal";
+import { AuthEmailContext } from "../../contexts/AuthEmailProvider";
 
 export const Event = () => {
   const [events, setEvents] = useState([]);
   const [open, setOpen] = useState(false);
-  const eventCollectionRef = collection(db, "events");
+  const { userId } = useContext(AuthEmailContext);
+  const eventCollectionRef = collection(db, userId);
 
   const getEvents = async () => {
     const data = await getDocs(eventCollectionRef);

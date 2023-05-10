@@ -5,11 +5,15 @@ import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { AuthEmailContext } from "../../contexts/AuthEmailProvider";
+import { Trash } from "phosphor-react";
+import { Loading } from "../Loading/Loading";
 
 export const EditEventModal = ({ event, getEvents }) => {
   // console.log(event);
   const { register, handleSubmit } = useForm();
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const { userId } = useContext(AuthEmailContext);
 
   async function handleUpdateEvent(data) {
@@ -23,10 +27,12 @@ export const EditEventModal = ({ event, getEvents }) => {
     };
 
     try {
+      setLoading(true);
       const docRef = doc(db, userId, event.id);
       await updateDoc(docRef, newEvent);
       console.log("Evento atualizado com sucesso!");
       getEvents();
+      setLoading(false);
       setOpenEditModal(false);
     } catch (error) {
       console.log("Erro ao atualizar o evento", error);
@@ -34,11 +40,18 @@ export const EditEventModal = ({ event, getEvents }) => {
   }
 
   async function handleDeleteEvent(id) {
-    console.log(id);
+    const confirmed = window.confirm(
+      "Tem certeza que deseja deletar este evento"
+    );
+    if (!confirmed) {
+      return;
+    }
+    setLoading(true);
     const eventDoc = doc(db, userId, id);
     await deleteDoc(eventDoc);
     getEvents();
     setOpenEditModal(false);
+    setLoading(false);
   }
   return (
     <Dialog.Root open={openEditModal} onOpenChange={setOpenEditModal}>
@@ -48,7 +61,16 @@ export const EditEventModal = ({ event, getEvents }) => {
       <Dialog.Portal>
         <Overlay />
         <Content>
-          <Dialog.Title>Evento</Dialog.Title>
+          <div className="MenuModal">
+            <Dialog.Title>Evento</Dialog.Title>
+            {loading ? (
+              <Loading />
+            ) : (
+              <button onClick={() => handleDeleteEvent(event.id)}>
+                <Trash size={22} />
+              </button>
+            )}
+          </div>
           <CloseButton>X</CloseButton>
           <form onSubmit={handleSubmit((data) => handleUpdateEvent(data))}>
             <input
@@ -87,10 +109,12 @@ export const EditEventModal = ({ event, getEvents }) => {
               {...register("description")}
               defaultValue={event.description}
             />
-
-            <Button type="submit">Editar Evento</Button>
+            {loading ? (
+              <Loading />
+            ) : (
+              <Button type="submit">Editar Evento</Button>
+            )}
           </form>
-          <Button onClick={() => handleDeleteEvent(event.id)}>Deletar</Button>
         </Content>
       </Dialog.Portal>
     </Dialog.Root>

@@ -30,10 +30,23 @@ export const Content = styled(Dialog.Content)`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  h2 {
-    font-weight: 500;
-  }
+  .MenuModal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
+    h2 {
+      font-weight: 500;
+    }
+
+    button {
+      border: none;
+      background-color: transparent;
+      text-decoration: none;
+      cursor: pointer;
+      color: var(--gray-100);
+    }
+  }
   form {
     margin-top: 2rem;
     display: flex;
@@ -44,15 +57,19 @@ export const Content = styled(Dialog.Content)`
       border-radius: 6px;
       border: 0;
       padding: 1rem;
-      background-color: var(--gray-100);
+      background-color: #f2f2f250;
       font-size: var(--text-md);
+      color: var(--gray-100);
 
       &::placeholder {
-        color: var(--gray-900);
+        color: var(--gray-100);
         position: absolute;
         left: 1rem;
         top: 50%;
         transform: translateY(-50%);
+      }
+      &:focus-visible {
+        outline: 2px solid var(--orange);
       }
     }
   }
@@ -60,7 +77,7 @@ export const Content = styled(Dialog.Content)`
 export const Button = styled.button`
   height: 58px;
   border: 0;
-  background-color: var(--gray-300);
+  background-color: var(--gray-200);
   color: var(--red);
   font-weight: bold;
   border-radius: 6px;

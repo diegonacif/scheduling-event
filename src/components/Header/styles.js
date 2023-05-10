@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HeaderContainer = styled.header`
   display: flex;
   width: 100vw;
-  height: 7rem;
+  height: 8rem;
   background: linear-gradient(135deg, var(--gray-700) 0%, var(--red) 60%, var(--orange) 100%);
   padding: 0 0.75rem;
 `;
@@ -52,6 +52,7 @@ export const HeaderContent = styled.div`
     right: 0;
     top: 50%;
     transform: translateY(-50%);
+    
     width: 3em;
     height: 3rem;
     border-radius: 9999px;

@@ -5,6 +5,7 @@ import {
   EventsTable,
   NewEventButton,
   RegisterEvent,
+  NewEventWrapper
 } from "./styles";
 
 import { db } from "../../services/firebase";
@@ -13,6 +14,7 @@ import { useContext, useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { EditEventModal } from "../EditEventModal/EditEventModal";
 import { AuthEmailContext } from "../../contexts/AuthEmailProvider";
+import { Plus } from "phosphor-react";
 
 export const Event = () => {
   const [events, setEvents] = useState([]);
@@ -32,67 +34,70 @@ export const Event = () => {
   return (
     <>
       <Header />
+      
       <EventsContainer>
-        <EventsTable>
-          {events.length > 0 ? (
-            <>
-              <thead>
-                <tr>
-                  <th>Evento</th>
-                  <th>Categoria</th>
-                  <th>Início</th>
-                  <th>Término</th>
-                </tr>
-              </thead>
-              <tbody>
-                {events.map((event) => {
-                  const options = {
-                    year: "numeric",
-                    month: "numeric",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                    // second: "numeric",
-                  };
-                  const myStartDate = new Date(event.startDateTimeEvent);
-                  const myEndDate = new Date(event.endDateTimeEvent);
-                  const dateFormatter = new Intl.DateTimeFormat(
-                    "pt-BR",
-                    options
-                  );
-                  const formattedStartDate = dateFormatter.format(myStartDate);
-                  const formattedEndDate = dateFormatter.format(myEndDate);
+        <NewEventWrapper>
+          <div className="event-wrapper-inner">
+            <Dialog.Root open={open} onOpenChange={setOpen}>
+              <Dialog.Trigger asChild>
+                <NewEventButton>
+                  <Plus size={24} weight="bold" />
+                </NewEventButton>
+              </Dialog.Trigger>
+              <NewEventModal getEvents={getEvents} setOpen={setOpen} />
+            </Dialog.Root>
+          </div>
+        </NewEventWrapper>
+        {
+          events.length > 0 ?
+          <EventsTable>
+            <thead>
+              <tr>
+                <th>Evento</th>
+                <th>Categoria</th>
+                <th>Início</th>
+                <th>Término</th>
+              </tr>
+            </thead>
+            <tbody>
+              {events.map((event) => {
+                const options = {
+                  year: "numeric",
+                  month: "numeric",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  // second: "numeric",
+                };
+                const myStartDate = new Date(event.startDateTimeEvent);
+                const myEndDate = new Date(event.endDateTimeEvent);
+                const dateFormatter = new Intl.DateTimeFormat(
+                  "pt-BR",
+                  options
+                );
+                const formattedStartDate = dateFormatter.format(myStartDate);
+                const formattedEndDate = dateFormatter.format(myEndDate);
 
-                  return (
-                    <tr key={event.id}>
-                      <td>
-                        <EditEventModal event={event} getEvents={getEvents} />
-                      </td>
-                      <td>{event.category}</td>
-                      <td>{formattedStartDate}h</td>
-                      <td>{formattedEndDate}h</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </>
-          ) : (
-            <RegisterEvent>
-              <strong>
-                Olá Rafaella, você ainda não tem nenhum evento cadastrado.
-              </strong>
-              <span>Crie seus Eventos e Organize sua agenda</span>
-            </RegisterEvent>
-          )}
-        </EventsTable>
-        <div className="new-event-wrapper">
-          <Dialog.Root open={open} onOpenChange={setOpen}>
-            <Dialog.Trigger asChild>
-              <NewEventButton>Criar Evento</NewEventButton>
-            </Dialog.Trigger>
-            <NewEventModal getEvents={getEvents} setOpen={setOpen} />
-          </Dialog.Root>
-        </div>
+                return (
+                  <tr key={event.id}>
+                    <td>
+                      <EditEventModal event={event} getEvents={getEvents} />
+                    </td>
+                    <td>{event.category}</td>
+                    <td>{formattedStartDate}h</td>
+                    <td>{formattedEndDate}h</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </EventsTable> :
+          <RegisterEvent>
+            <strong>
+              Olá, você ainda não tem nenhum evento cadastrado.
+            </strong>
+            <span>Crie seus Eventos e Organize sua agenda</span>
+          </RegisterEvent>
+        }
       </EventsContainer>
     </>
   );

@@ -2,13 +2,30 @@ import styled from "styled-components";
 
 
 export const RegisterEvent = styled.div`
-
+  max-width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 2rem 5rem;
-  
+  /* margin: 2rem 5rem; */
+`;
+
+export const NewEventWrapper = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: start;
+  width: 100%;
+  min-width: 48rem;
+  height: 0;
+  /* padding: 0 1.5rem; */
+
+  .event-wrapper-inner {
+    position: relative;
+    right: 0.4375rem;
+    bottom: 0.4375rem;
+    width: fit-content;
+    height: fit-content;
+  }
 `;
 export const EventsContainer = styled.main`
   position: relative;
@@ -22,14 +39,6 @@ export const EventsContainer = styled.main`
   overflow-x: auto;
 
   /* box-sizing: content-box; */
-
-  .new-event-wrapper {
-    display: flex;
-    justify-content: end;
-    position: relative;
-    width: 100%;
-    min-width: 48rem;
-  }
 `;
 
 export const EventsTable = styled.table`
@@ -79,24 +88,30 @@ export const EventsTable = styled.table`
 `;
 
 export const NewEventButton = styled.button`
-  position: sticky;
+  /* position: absolute;
   right: 0;
   bottom: 0;
-  width: fit-content;
-  height: fit-content;
+  transform: translateY(25%); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
   border: 0;
-  background: linear-gradient(135deg, var(--gray-700) 0%, var(--red) 50%, var(--orange) 100%);
-  
-  font-weight: 600;
-  padding: 0.75rem 1.25rem;
-  border-radius: 6px;
-  cursor: pointer;
-  /* margin-left: auto; */
-  margin-top: 2rem;
   color: var(--gray-100);
+  background-color: var(--red);
+  font-weight: 600;
+  font-size: var(--text-lg);
+  border-radius: 50%;
+  filter: drop-shadow(2px 2px 3px #00000080);
+  cursor: pointer;
+  transition: background-color 0.1s, color 0.1s;
+  /* margin-left: auto; */
+  /* margin-top: 2rem; */
 
   &:hover {
-    background: var(--green-600);
-    transition: background-color 0.2s;
+    background-color: var(--orange);
+    /* color: var(--red); */
+    transition: background-color 0.3s, color 0.3s;
   }
 `;

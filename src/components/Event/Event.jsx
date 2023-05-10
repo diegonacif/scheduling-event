@@ -38,8 +38,8 @@ export const Event = () => {
                 <tr>
                   <th>Evento</th>
                   <th>Categoria</th>
-                  <th>Data e Hora de Início</th>
-                  <th>Data e Hora do Término</th>
+                  <th>Início</th>
+                  <th>Término</th>
                 </tr>
               </thead>
               <tbody>
@@ -50,7 +50,7 @@ export const Event = () => {
                     day: "numeric",
                     hour: "numeric",
                     minute: "numeric",
-                    second: "numeric",
+                    // second: "numeric",
                   };
                   const myStartDate = new Date(event.startDateTimeEvent);
                   const myEndDate = new Date(event.endDateTimeEvent);
@@ -67,8 +67,8 @@ export const Event = () => {
                         <EditEventModal event={event} getEvents={getEvents} />
                       </td>
                       <td>{event.category}</td>
-                      <td>{formattedStartDate}</td>
-                      <td>{formattedEndDate}</td>
+                      <td>{formattedStartDate}h</td>
+                      <td>{formattedEndDate}h</td>
                     </tr>
                   );
                 })}

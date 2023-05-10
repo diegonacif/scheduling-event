@@ -28,13 +28,13 @@ export const EventsContainer = styled.main`
     justify-content: end;
     position: relative;
     width: 100%;
-    min-width: 53rem;
+    min-width: 48rem;
   }
 `;
 
 export const EventsTable = styled.table`
   width: 100%;
-  min-width: 53rem;
+  min-width: 48rem;
   border-collapse: separate;
   border-spacing: 0 0.5rem;
   /* margin-top: 1.5rem; */
@@ -42,8 +42,9 @@ export const EventsTable = styled.table`
 
   th {
     background-color: var(--red) ;
+    color: var(--gray-100);
     padding: 1.25rem 2rem;
-    text-align: left;
+    text-align: center;
 
     &:first-child {
       border-top-left-radius: 8px;
@@ -59,6 +60,7 @@ export const EventsTable = styled.table`
   td {
     padding: 1.25rem 2rem;
     background: var(--rose);
+    text-align: center;
 
     &:first-child {
       border-top-left-radius: 6px;

@@ -6,6 +6,7 @@ import {
   NewEventButton,
   RegisterEvent,
   NewEventWrapper,
+  SearchForm,
 } from "./styles";
 
 import { db } from "../../services/firebase";
@@ -14,7 +15,7 @@ import { useContext, useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { EditEventModal } from "../EditEventModal/EditEventModal";
 import { AuthEmailContext } from "../../contexts/AuthEmailProvider";
-import { Plus } from "phosphor-react";
+import { MagnifyingGlass, Plus } from "phosphor-react";
 
 export const Event = () => {
   const [events, setEvents] = useState([]);
@@ -34,6 +35,22 @@ export const Event = () => {
     getEvents();
   }, []);
 
+  useEffect(() => {
+    const handleSearchEvents = async () => {
+      // event.preventDefault();
+      if (searchTerm.trim() === "") {
+        getEvents();
+      } else {
+        const querySnapshot = await getDocs(q);
+        setEvents(
+          querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+      }
+    };
+
+    handleSearchEvents();
+  }, [searchTerm])
+  
   const handleSearchEvents = async (event) => {
     event.preventDefault();
     if (searchTerm.trim() === "") {
@@ -54,14 +71,17 @@ export const Event = () => {
   return (
     <>
       <Header />
-      <form onSubmit={handleSearchEvents}>
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => getsearchTerm(e)}
-        />
-        <button type="submit">Buscar</button>
-      </form>
+      <SearchForm>
+        <div className="search-input-wrapper">
+          <input
+            type="text"
+            value={searchTerm}
+            placeholder="Busca por categoria"
+            onChange={(e) => getsearchTerm(e)}
+          />
+          <MagnifyingGlass size={24} weight="bold" />
+        </div>
+      </SearchForm>
       <EventsContainer>
         <NewEventWrapper>
           <div className="event-wrapper-inner">

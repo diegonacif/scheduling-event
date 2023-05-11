@@ -115,3 +115,54 @@ export const NewEventButton = styled.button`
     transition: background-color 0.3s, color 0.3s;
   }
 `;
+
+export const SearchForm = styled.form`
+  
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 2rem;
+  padding: 0 1.5rem;
+  /* background-color: green; */
+  
+  .search-input-wrapper {
+    position: relative;
+
+    input {
+      width: 15rem;
+      height: 2.25rem;
+      border-radius: 4px;
+      color: var(--gray-100);
+      font-size: var(--text-md);
+      font-weight: 500;
+      background: linear-gradient(135deg, rgba(55, 65, 81, 0.85) 0%, rgba(215, 38, 61, 0.85) 60%, rgba(244, 96, 54, 0.85) 100%);
+      /* background: linear-gradient(135deg, rgba(55, 65, 81, 0.5) 0%, rgba(215, 38, 61, 0.5) 60%, rgba(244, 96, 54, 0.5) 100%); */
+      border: 0;
+      padding: 0 2.5rem 0 0.75rem;
+  
+      box-shadow:  2px 2px 8px rgba(55, 65, 81, 0.65),
+                -2px -2px 8px #ffffff;
+      transition: box-shadow 0.2s;
+
+      &::placeholder {
+        color: var(--gray-300);
+      }
+
+      &:focus-visible {
+        outline: none;
+        box-shadow:  2px 2px 8px rgba(244, 96, 54, 0.75),
+                -2px -2px 8px #ffffff;
+        transition: box-shadow 0.3s;
+      }
+    }
+  
+    svg {
+      position: absolute;
+      top: 50%;
+      right: 0.5rem;
+      transform: translateY(-50%);
+      color: var(--gray-200);
+    }
+  }
+
+`

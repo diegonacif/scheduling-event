@@ -10,7 +10,6 @@ import { AuthEmailContext } from "../../contexts/AuthEmailProvider";
 export const NewEventModal = ({ getEvents, setOpen }) => {
   const { register, handleSubmit, reset } = useForm();
   const { userId } = useContext(AuthEmailContext);
-  console.log(userId);
 
   async function handleCreateEvent(data) {
     const event = {

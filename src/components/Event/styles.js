@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const RegisterEvent = styled.div`
   max-width: 90vw;
   display: flex;
@@ -36,14 +35,22 @@ export const EventsContainer = styled.main`
   position: relative;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+
   justify-content: center;
   width: 100vw;
   margin: 0 auto;
   padding: 1.5rem 1.5rem;
   overflow-x: auto;
 
-  /* box-sizing: content-box; */
+  .LoadingField {
+    background-color: var(--red);
+    max-width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    margin: auto;
+  }
 `;
 
 export const EventsTable = styled.table`
@@ -51,11 +58,9 @@ export const EventsTable = styled.table`
   min-width: 48.5rem;
   border-collapse: separate;
   border-spacing: 0 0.5rem;
-  /* margin-top: 1.5rem; */
-  /* margin-bottom: 4rem; */
 
   th {
-    background-color: var(--red) ;
+    background-color: var(--red);
     color: var(--gray-100);
     padding: 1.25rem 2rem;
     text-align: center;
@@ -122,14 +127,13 @@ export const NewEventButton = styled.button`
 `;
 
 export const SearchForm = styled.form`
-  
   display: flex;
   justify-content: flex-end;
   width: 100%;
   margin-top: 2rem;
   padding: 0 1.5rem;
   /* background-color: green; */
-  
+
   .search-input-wrapper {
     position: relative;
 
@@ -140,13 +144,17 @@ export const SearchForm = styled.form`
       color: var(--gray-100);
       font-size: var(--text-md);
       font-weight: 500;
-      background: linear-gradient(135deg, rgba(55, 65, 81, 0.85) 0%, rgba(215, 38, 61, 0.85) 60%, rgba(244, 96, 54, 0.85) 100%);
+      background: linear-gradient(
+        135deg,
+        rgba(55, 65, 81, 0.85) 0%,
+        rgba(215, 38, 61, 0.85) 60%,
+        rgba(244, 96, 54, 0.85) 100%
+      );
       /* background: linear-gradient(135deg, rgba(55, 65, 81, 0.5) 0%, rgba(215, 38, 61, 0.5) 60%, rgba(244, 96, 54, 0.5) 100%); */
       border: 0;
       padding: 0 2.5rem 0 0.75rem;
-  
-      box-shadow:  2px 2px 8px rgba(55, 65, 81, 0.65),
-                -2px -2px 8px #ffffff;
+
+      box-shadow: 2px 2px 8px rgba(55, 65, 81, 0.65), -2px -2px 8px #ffffff;
       transition: box-shadow 0.2s;
 
       &::placeholder {
@@ -155,12 +163,11 @@ export const SearchForm = styled.form`
 
       &:focus-visible {
         outline: none;
-        box-shadow:  2px 2px 8px rgba(244, 96, 54, 0.75),
-                -2px -2px 8px #ffffff;
+        box-shadow: 2px 2px 8px rgba(244, 96, 54, 0.75), -2px -2px 8px #ffffff;
         transition: box-shadow 0.3s;
       }
     }
-  
+
     svg {
       position: absolute;
       top: 50%;
@@ -169,5 +176,4 @@ export const SearchForm = styled.form`
       color: var(--gray-200);
     }
   }
-
-`
+`;

@@ -57,12 +57,13 @@ export const Content = styled(Dialog.Content)`
     flex-direction: column;
     gap: 1rem;
 
-    input {
+    input,
+    select {
       border-radius: 6px;
       border: 0;
       padding: 1rem;
       /* background-color: #f2f2f250; */
-      background-color: #2C2C2C60;
+      background-color: #2c2c2c60;
       font-size: var(--text-md);
       color: var(--gray-100);
 

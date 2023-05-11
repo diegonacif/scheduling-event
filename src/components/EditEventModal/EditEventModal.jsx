@@ -79,12 +79,23 @@ export const EditEventModal = ({ event, getEvents }) => {
               {...register("event", { required: true })}
               defaultValue={event.event}
             />
-            <input
-              type="text"
-              placeholder="Categoria"
+            <select
               {...register("category", { required: true })}
-              defaultValue={event.category}
-            />
+              placeholder="Categoria">
+              <option value="">--Selecione a Categoria--</option>
+              <option value="festa">festa</option>
+              <option value="cultura">cultura</option>
+              <option value="corporativo">corporativo</option>
+              <option value="esportivo">esportivo</option>
+              <option value="caridade">caridade</option>
+              <option value="religioso">religioso</option>
+              <option value="moda">moda</option>
+              <option value="saúde">saúde</option>
+              <option value="viagem">viagem</option>
+              <option value="gastronomia">gastronomia</option>
+              <option value="tecnologia">tecnologia</option>
+              <option value="educação">educação</option>
+            </select>
             <input
               type="datetime-local"
               placeholder="Data/Horário de início"

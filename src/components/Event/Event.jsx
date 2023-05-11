@@ -34,7 +34,7 @@ export const Event = () => {
     getEvents();
   }, []);
 
-  const handleSearch = async (event) => {
+  const handleSearchEvents = async (event) => {
     event.preventDefault();
     if (searchTerm.trim() === "") {
       getEvents();
@@ -54,7 +54,7 @@ export const Event = () => {
   return (
     <>
       <Header />
-      <form onSubmit={handleSearch}>
+      <form onSubmit={handleSearchEvents}>
         <input
           type="text"
           value={searchTerm}

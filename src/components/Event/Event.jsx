@@ -21,10 +21,15 @@ export const Event = () => {
   const [events, setEvents] = useState([]);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const { userId } = useContext(AuthEmailContext);
+  const { userId, authLoading } = useContext(AuthEmailContext);
 
-  const eventCollectionRef = collection(db, userId);
+  const eventCollectionRef = userId ? collection(db, userId) : null;
   const q = query(eventCollectionRef, where("category", "==", searchTerm));
+
+  // console.log({
+  //   eventCollectionRef: eventCollectionRef,
+  //   userId: userId
+  // })
 
   const getEvents = async () => {
     const data = await getDocs(eventCollectionRef);
@@ -33,7 +38,7 @@ export const Event = () => {
 
   useEffect(() => {
     getEvents();
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     const handleSearchEvents = async () => {
@@ -69,78 +74,85 @@ export const Event = () => {
   }
 
   return (
+    
     <>
       <Header />
-      <SearchForm>
-        <div className="search-input-wrapper">
-          <input
-            type="text"
-            value={searchTerm}
-            placeholder="Busca por categoria"
-            onChange={(e) => getsearchTerm(e)}
-          />
-          <MagnifyingGlass size={24} weight="bold" />
-        </div>
-      </SearchForm>
-      <EventsContainer>
-        <NewEventWrapper>
-          <div className="event-wrapper-inner">
-            <Dialog.Root open={open} onOpenChange={setOpen}>
-              <Dialog.Trigger asChild>
-                <NewEventButton>
-                  <Plus size={24} weight="bold" />
-                </NewEventButton>
-              </Dialog.Trigger>
-              <NewEventModal getEvents={getEvents} setOpen={setOpen} />
-            </Dialog.Root>
+    {
+      !eventCollectionRef ?
+      <span>Loading</span> :
+      <>
+        <SearchForm>
+          <div className="search-input-wrapper">
+            <input
+              type="text"
+              value={searchTerm}
+              placeholder="Busca por categoria"
+              onChange={(e) => getsearchTerm(e)}
+            />
+            <MagnifyingGlass size={24} weight="bold" />
           </div>
-        </NewEventWrapper>
-        {events.length > 0 ? (
-          <EventsTable>
-            <thead>
-              <tr>
-                <th>Evento</th>
-                <th>Categoria</th>
-                <th>Início</th>
-                <th>Término</th>
-              </tr>
-            </thead>
-            <tbody>
-              {events.map((event) => {
-                const options = {
-                  year: "numeric",
-                  month: "numeric",
-                  day: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  // second: "numeric",
-                };
-                const myStartDate = new Date(event.startDateTimeEvent);
-                const myEndDate = new Date(event.endDateTimeEvent);
-                const dateFormatter = new Intl.DateTimeFormat("pt-BR", options);
-                const formattedStartDate = dateFormatter.format(myStartDate);
-                const formattedEndDate = dateFormatter.format(myEndDate);
+        </SearchForm>
+        <EventsContainer>
+          <NewEventWrapper>
+            <div className="event-wrapper-inner">
+              <Dialog.Root open={open} onOpenChange={setOpen}>
+                <Dialog.Trigger asChild>
+                  <NewEventButton>
+                    <Plus size={24} weight="bold" />
+                  </NewEventButton>
+                </Dialog.Trigger>
+                <NewEventModal getEvents={getEvents} setOpen={setOpen} />
+              </Dialog.Root>
+            </div>
+          </NewEventWrapper>
+          {events.length > 0 ? (
+            <EventsTable>
+              <thead>
+                <tr>
+                  <th>Evento</th>
+                  <th>Categoria</th>
+                  <th>Início</th>
+                  <th>Término</th>
+                </tr>
+              </thead>
+              <tbody>
+                {events.map((event) => {
+                  const options = {
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    // second: "numeric",
+                  };
+                  const myStartDate = new Date(event.startDateTimeEvent);
+                  const myEndDate = new Date(event.endDateTimeEvent);
+                  const dateFormatter = new Intl.DateTimeFormat("pt-BR", options);
+                  const formattedStartDate = dateFormatter.format(myStartDate);
+                  const formattedEndDate = dateFormatter.format(myEndDate);
 
-                return (
-                  <tr key={event.id}>
-                    <td>
-                      <EditEventModal event={event} getEvents={getEvents} />
-                    </td>
-                    <td>{event.category}</td>
-                    <td>{formattedStartDate}h</td>
-                    <td>{formattedEndDate}h</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </EventsTable>
-        ) : (
-          <RegisterEvent>
-            <strong>Olá, você ainda não tem nenhum evento cadastrado.</strong>
-            <span>Crie seus Eventos e Organize sua agenda</span>
-          </RegisterEvent>
-        )}
-      </EventsContainer>
+                  return (
+                    <tr key={event.id}>
+                      <td>
+                        <EditEventModal event={event} getEvents={getEvents} />
+                      </td>
+                      <td>{event.category}</td>
+                      <td>{formattedStartDate}h</td>
+                      <td>{formattedEndDate}h</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </EventsTable>
+          ) : (
+            <RegisterEvent>
+              <strong>Olá, você ainda não tem nenhum evento cadastrado.</strong>
+              <span>Crie seus Eventos e Organize sua agenda</span>
+            </RegisterEvent>
+          )}
+        </EventsContainer>
+      </>
+    }
     </>
   );
 };

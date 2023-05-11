@@ -2,12 +2,17 @@ import styled from "styled-components";
 
 
 export const RegisterEvent = styled.div`
-  max-width: 100vw;
+  max-width: 90vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-left: 3rem;
   /* margin: 2rem 5rem; */
+
+  span {
+    margin-top: 0.75rem;
+  }
 `;
 
 export const NewEventWrapper = styled.div`
@@ -15,7 +20,7 @@ export const NewEventWrapper = styled.div`
   display: flex;
   justify-content: start;
   width: 100%;
-  min-width: 48rem;
+  /* min-width: 48rem; */
   height: 0;
   /* padding: 0 1.5rem; */
 
@@ -43,7 +48,7 @@ export const EventsContainer = styled.main`
 
 export const EventsTable = styled.table`
   width: 100%;
-  min-width: 48rem;
+  min-width: 48.5rem;
   border-collapse: separate;
   border-spacing: 0 0.5rem;
   /* margin-top: 1.5rem; */

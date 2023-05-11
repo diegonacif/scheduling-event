@@ -96,6 +96,7 @@ export const AuthEmailProvider = ({ children }) => {
       );
       setRefreshToken(user.user.refreshToken);
       console.log("Login success!");
+      setUserId(user.user.uid)
     } catch (error) {
       handleLastError(error.code, "login");
     }

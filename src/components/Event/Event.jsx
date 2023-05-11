@@ -5,13 +5,13 @@ import {
   EventsTable,
   NewEventButton,
   RegisterEvent,
-  NewEventWrapper
+  NewEventWrapper,
 } from "./styles";
 
 import { db } from "../../services/firebase";
 import { NewEventModal } from "../NewEventModal/NewEventModal";
 import { useContext, useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { EditEventModal } from "../EditEventModal/EditEventModal";
 import { AuthEmailContext } from "../../contexts/AuthEmailProvider";
 import { Plus } from "phosphor-react";
@@ -19,8 +19,11 @@ import { Plus } from "phosphor-react";
 export const Event = () => {
   const [events, setEvents] = useState([]);
   const [open, setOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const { userId } = useContext(AuthEmailContext);
+
   const eventCollectionRef = collection(db, userId);
+  const q = query(eventCollectionRef, where("category", "==", searchTerm));
 
   const getEvents = async () => {
     const data = await getDocs(eventCollectionRef);
@@ -31,10 +34,34 @@ export const Event = () => {
     getEvents();
   }, []);
 
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    if (searchTerm.trim() === "") {
+      getEvents();
+    } else {
+      const querySnapshot = await getDocs(q);
+      setEvents(
+        querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
+    }
+  };
+
+  function getsearchTerm(e) {
+    console.log(e.target.value);
+    setSearchTerm(e.target.value);
+  }
+
   return (
     <>
       <Header />
-      
+      <form onSubmit={handleSearch}>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => getsearchTerm(e)}
+        />
+        <button type="submit">Buscar</button>
+      </form>
       <EventsContainer>
         <NewEventWrapper>
           <div className="event-wrapper-inner">
@@ -48,8 +75,7 @@ export const Event = () => {
             </Dialog.Root>
           </div>
         </NewEventWrapper>
-        {
-          events.length > 0 ?
+        {events.length > 0 ? (
           <EventsTable>
             <thead>
               <tr>
@@ -71,10 +97,7 @@ export const Event = () => {
                 };
                 const myStartDate = new Date(event.startDateTimeEvent);
                 const myEndDate = new Date(event.endDateTimeEvent);
-                const dateFormatter = new Intl.DateTimeFormat(
-                  "pt-BR",
-                  options
-                );
+                const dateFormatter = new Intl.DateTimeFormat("pt-BR", options);
                 const formattedStartDate = dateFormatter.format(myStartDate);
                 const formattedEndDate = dateFormatter.format(myEndDate);
 
@@ -90,14 +113,13 @@ export const Event = () => {
                 );
               })}
             </tbody>
-          </EventsTable> :
+          </EventsTable>
+        ) : (
           <RegisterEvent>
-            <strong>
-              Olá, você ainda não tem nenhum evento cadastrado.
-            </strong>
+            <strong>Olá, você ainda não tem nenhum evento cadastrado.</strong>
             <span>Crie seus Eventos e Organize sua agenda</span>
           </RegisterEvent>
-        }
+        )}
       </EventsContainer>
     </>
   );

@@ -95,6 +95,7 @@ export const EditEventModal = ({ event, getEvents }) => {
               <option value="gastronomia">gastronomia</option>
               <option value="tecnologia">tecnologia</option>
               <option value="educação">educação</option>
+              <option value="beleza">beleza</option>
             </select>
             <input
               type="datetime-local"

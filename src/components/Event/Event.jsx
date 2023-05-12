@@ -21,17 +21,11 @@ import { Loading } from "../Loading/Loading";
 export const Event = () => {
   const [events, setEvents] = useState([]);
   const [open, setOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const { userId, authLoading } = useContext(AuthEmailContext);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
   const eventCollectionRef = userId ? collection(db, userId) : null;
-  const q = query(
-    eventCollectionRef,
-    where("category", ">=", searchTerm.toLowerCase()),
-    where("category", "<=", searchTerm.toLowerCase() + "uf8ff")
-  );
 
   const getEvents = async () => {
     const data = await getDocs(eventCollectionRef);
@@ -48,6 +42,11 @@ export const Event = () => {
   }, [userId]);
 
   const handleSearchEvents = async (term) => {
+    const q = query(
+      eventCollectionRef,
+      where("category", ">=", term.toLowerCase()),
+      where("category", "<=", term.toLowerCase() + "uf8ff")
+    );
     console.log({ term, isTrue: !term.trim() });
     if (!term.trim()) {
       await getEvents();
@@ -70,7 +69,6 @@ export const Event = () => {
 
   function getsearchTerm(e) {
     handleSearchEvents(e.target.value.toLowerCase());
-    setSearchTerm(e.target.value.toLowerCase());
   }
 
   return (
@@ -84,7 +82,6 @@ export const Event = () => {
             <div className="search-input-wrapper">
               <input
                 type="text"
-                value={searchTerm}
                 placeholder="Busca por categoria"
                 onChange={(e) => getsearchTerm(e)}
               />

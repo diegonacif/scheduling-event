@@ -84,19 +84,19 @@ export const EditEventModal = ({ event, getEvents }) => {
               placeholder="Categoria"
               defaultValue={event.category}>
               <option value="">--Selecione a Categoria--</option>
-              <option value="festa">festa</option>
-              <option value="cultura">cultura</option>
-              <option value="corporativo">corporativo</option>
-              <option value="esportivo">esportivo</option>
-              <option value="caridade">caridade</option>
-              <option value="religioso">religioso</option>
-              <option value="moda">moda</option>
-              <option value="saúde">saúde</option>
-              <option value="viagem">viagem</option>
-              <option value="gastronomia">gastronomia</option>
-              <option value="tecnologia">tecnologia</option>
-              <option value="educação">educação</option>
-              <option value="beleza">beleza</option>
+              <option value="festa">Festa</option>
+              <option value="cultura">Cultura</option>
+              <option value="corporativo">Corporativo</option>
+              <option value="esportivo">Esportivo</option>
+              <option value="caridade">Caridade</option>
+              <option value="religioso">Religioso</option>
+              <option value="moda">Moda</option>
+              <option value="saúde">Saúde</option>
+              <option value="viagem">Viagem</option>
+              <option value="gastronomia">Gastronomia</option>
+              <option value="tecnologia">Tecnologia</option>
+              <option value="educação">Educação</option>
+              <option value="beleza">Beleza</option>
             </select>
             <input
               type="datetime-local"

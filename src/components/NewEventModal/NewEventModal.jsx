@@ -64,6 +64,7 @@ export const NewEventModal = ({ getEvents, setOpen }) => {
             <option value="gastronomia">gastronomia</option>
             <option value="tecnologia">tecnologia</option>
             <option value="educação">educação</option>
+            <option value="beleza">beleza</option>
           </select>
 
           <input

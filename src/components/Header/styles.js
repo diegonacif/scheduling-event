@@ -6,6 +6,21 @@ export const HeaderContainer = styled.header`
   height: 8rem;
   background: linear-gradient(135deg, var(--gray-700) 0%, var(--red) 60%, var(--orange) 100%);
   padding: 0 0.75rem;
+
+  // tablet breakpoint
+  @media only screen and (min-width: 600px) { 
+    padding: 1.5rem 2rem;
+  }
+
+  // notebook breakpoint
+  @media only screen and (min-width: 1024px) {
+    padding: 1.5rem 4rem;
+  }
+
+  // notebook breakpoint
+  @media only screen and (min-width: 1280px) {
+    padding: 1.5rem 6rem;
+  }
 `;
 
 export const HeaderContent = styled.div`
@@ -15,6 +30,8 @@ export const HeaderContent = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
 
   .logo-img-wrapper {
     position: relative;
@@ -53,8 +70,8 @@ export const HeaderContent = styled.div`
     top: 50%;
     transform: translateY(-50%);
     
-    width: 3em;
-    height: 3rem;
+    width: fit-content;
+    height: fit-content;
     border-radius: 9999px;
     transition: background-color 0.1s;
 

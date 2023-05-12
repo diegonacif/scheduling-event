@@ -82,6 +82,7 @@ export const AuthEmailProvider = ({ children }) => {
       );
       setRefreshToken(user.user.refreshToken);
       console.log("Register success!");
+      setUserId(user.user.uid)
     } catch (error) {
       handleLastError(error.code, "register");
     }

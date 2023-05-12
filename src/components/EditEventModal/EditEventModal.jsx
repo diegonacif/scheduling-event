@@ -81,7 +81,8 @@ export const EditEventModal = ({ event, getEvents }) => {
             />
             <select
               {...register("category", { required: true })}
-              placeholder="Categoria">
+              placeholder="Categoria"
+              defaultValue={event.category}>
               <option value="">--Selecione a Categoria--</option>
               <option value="festa">festa</option>
               <option value="cultura">cultura</option>

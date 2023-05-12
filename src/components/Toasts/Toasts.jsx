@@ -28,8 +28,8 @@ export const Toasts = () => {
           <Toast.Description asChild>
             <p>{lastError.code}</p>
           </Toast.Description>
-          <Toast.Action className="ToastAction" asChild altText="Goto schedule to undo">
-            <button className="Button small green">Undo</button>
+          <Toast.Action className="ToastAction" asChild altText="Close">
+            <button className="Button small green">Close</button>
           </Toast.Action>
         </Toast.Root>
         <Toast.Viewport className="ToastViewport" />

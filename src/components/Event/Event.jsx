@@ -24,7 +24,7 @@ export const Event = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { userId, authLoading } = useContext(AuthEmailContext);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const eventCollectionRef = userId ? collection(db, userId) : null;
   const q = query(

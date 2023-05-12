@@ -35,9 +35,9 @@ export const GlobalStyle = createGlobalStyle`
     --text-3xl: 1.625rem; /* 26px */
 
     // Media Variables
-    --tablet-size: "min-width: 510px";
-    --notebook-size: "min-width: 768px";
-    --desktop-size: "min-width: 1024px";
+    --tablet-size: "min-width: 450px";
+    --notebook-size: "min-width: 1024px";
+    --desktop-size: "min-width: 1280px";
   }
 
   * {

@@ -19,6 +19,8 @@ export const NewEventWrapper = styled.div`
   display: flex;
   justify-content: start;
   width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
   /* min-width: 48rem; */
   height: 0;
   /* padding: 0 1.5rem; */
@@ -34,12 +36,13 @@ export const NewEventWrapper = styled.div`
 export const EventsContainer = styled.main`
   position: relative;
   display: flex;
+  /* align-items: center; */
   flex-direction: column;
 
   justify-content: center;
   width: 100vw;
   margin: 0 auto;
-  padding: 1.5rem 1.5rem;
+  padding: 1.5rem 0.75rem;
   overflow-x: auto;
 
   .LoadingField {
@@ -51,13 +54,30 @@ export const EventsContainer = styled.main`
     border-radius: 50px;
     margin: auto;
   }
+
+  // tablet breakpoint
+  @media only screen and (min-width: 600px) { 
+    padding: 1.5rem 2rem;
+  }
+
+  // notebook breakpoint
+  @media only screen and (min-width: 1024px) {
+    padding: 1.5rem 4rem;
+  }
+
+  // notebook breakpoint
+  @media only screen and (min-width: 1280px) {
+    padding: 1.5rem 6rem;
+  }
 `;
 
 export const EventsTable = styled.table`
   width: 100%;
   min-width: 48.5rem;
+  max-width: 60rem;
   border-collapse: separate;
   border-spacing: 0 0.5rem;
+  margin: 0 auto;
 
   th {
     background-color: var(--red);
@@ -128,14 +148,19 @@ export const NewEventButton = styled.button`
 
 export const SearchForm = styled.form`
   display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  margin-top: 2rem;
-  padding: 0 1.5rem;
+  justify-content: center;
+  
+  /* max-width: 60rem; */
+  margin: 2rem auto 0;
+  padding: 0 0.75rem;
   /* background-color: green; */
 
   .search-input-wrapper {
     position: relative;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 60rem;
 
     input {
       width: 15rem;
@@ -175,5 +200,20 @@ export const SearchForm = styled.form`
       transform: translateY(-50%);
       color: var(--gray-200);
     }
+  }
+
+  // tablet breakpoint
+  @media only screen and (min-width: 600px) { 
+    padding: 0 2rem;
+  }
+
+  // notebook breakpoint
+  @media only screen and (min-width: 1024px) {
+    padding: 0 4rem;
+  }
+
+  // notebook breakpoint
+  @media only screen and (min-width: 1280px) {
+    padding: 0 6rem;
   }
 `;
